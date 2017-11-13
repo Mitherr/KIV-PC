@@ -25,15 +25,19 @@ int main(int argc, char *argv[]) {
 	dispose_arraylist(&list);
 	}	
 */
+	while(1){
 	
 	graph_node *g1 = create_graph_node(1);
 	arraylist *list = create_arraylist();
 	array_node *an = append_node(list,g1);
 
 	set_date(an,"1996-02-05");
+	
+	printf("%i",an->year);
 		
 	dispose_arraylist(&list);
-		
+	
+	}
 	
 	return 0;
 }

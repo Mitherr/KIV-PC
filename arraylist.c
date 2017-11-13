@@ -18,9 +18,9 @@ array_node *create_array_node(graph_node *node){
 	
 	temp = (array_node *) malloc(sizeof(array_node));
 	
-	temp->year = NULL;
-	temp->month = NULL;
-	temp->day = NULL;
+	temp->year = 0;
+	temp->month = 0;
+	temp->day = 0;
 	
 	temp->node_g = node;
 	temp->next = NULL;
@@ -42,6 +42,8 @@ void set_date(array_node *node,char *date){
 		year[i] = date[i];
 	}
 	year[4] = '\0';
+	
+	
 		
 	month = (char *) malloc(sizeof(char)*3);
 	
@@ -57,9 +59,13 @@ void set_date(array_node *node,char *date){
 	}
 	day[2] = '\0';
 	
-	node->year = year;
-	node->month = month;
-	node->day = day;
+	node->year = atoi(year);
+	node->month = atoi(month);
+	node->day = atoi(day);
+	
+	free(year);
+	free(month);
+	free(day);
 }
 
 /* ____________________________________________________________________________
@@ -127,18 +133,6 @@ void dispose_array_nodes(array_node **node){
 	
 	if((*node)->next != NULL) dispose_array_nodes(&(*node)->next);
 	
-	if((*node)->year != NULL){
-		free((*node)->year);
-	}
-	
-	if((*node)->month != NULL){
-		free((*node)->month);
-	}
-	
-	if((*node)->day != NULL){
-		free((*node)->day);
-	} 
-	
 	free(*node);
 	*node = NULL;
 }
@@ -156,18 +150,6 @@ void dispose_array_and_graph_nodes(array_node **node){
 	
 	dispose_graph_node(&(*node)->node_g);
 	if((*node)->next != NULL) dispose_array_and_graph_nodes(&(*node)->next);
-	
-	if((*node)->year != NULL){
-		free((*node)->year);
-	}
-	
-	if((*node)->month != NULL){
-		free((*node)->month);
-	}
-	
-	if((*node)->day != NULL){
-		free((*node)->day);
-	}
 		
 	free(*node);
 	*node = NULL;

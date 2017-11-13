@@ -11,9 +11,9 @@
 typedef struct ARRAYNODE{
 	struct ARRAYNODE *next;
 	struct GRAPHNODE *node_g;
-	char *year;
-	char *month;
-	char *day;
+	int year;
+	int month;
+	int day;
 }array_node;
 
 typedef struct ARRAYLIST{
