@@ -7,6 +7,6 @@
    ____________________________________________________________________________
 */
 
-void find_paths(arraylist *graph,int id_node_start,int id_node_end);
+void find_paths(arraylist *graph,int id_node_start,int id_node_end,int max_level);
 
 #endif

@@ -24,6 +24,8 @@ array_node *create_array_node(graph_node *node){
 	
 	temp->node_g = node;
 	temp->next = NULL;
+	temp->previous_path = NULL;
+	temp->level = 0;
 	
 	return temp;
 }
