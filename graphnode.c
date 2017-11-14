@@ -35,7 +35,7 @@ graph_node *create_graph_node(int id_node){
 void dispose_graph_node(graph_node **node){
 	if(*node == NULL) return;
 	
-	if((*node)->neighbours != NULL) dispose_arraylist(&(*node)->neighbours);
+	if((*node)->neighbours != NULL) dispose_neighbourlist(&(*node)->neighbours);
 	
 	free(*node);
 	*node = NULL;

@@ -1,6 +1,5 @@
-#ifndef _COMPARATOR_H
-#define _COMPARATOR_H
-
+#ifndef _SEARCH_H
+#define _SEARCH_H
 
 /* ____________________________________________________________________________
 
@@ -8,7 +7,6 @@
    ____________________________________________________________________________
 */
 
-int compare(array_node*a1,array_node *a2);
-int difference_days(array_node*a1,array_node *a2);
+void find_paths(arraylist *graph,int id_node_start,int id_node_end);
 
 #endif

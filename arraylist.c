@@ -117,7 +117,62 @@ array_node *append_node(arraylist *list,graph_node *node){
 	
 	temp->next = new_temp;
 	
-	return list->head;
+	return new_temp;
+}
+
+array_node *add_neighbour(graph_node *node, graph_node *neighbour){
+	array_node *temp = NULL;
+	
+	
+	if(node->neighbours == NULL){
+		node->neighbours=create_arraylist();
+		temp = append_node(node->neighbours,neighbour);
+	}
+	else{
+		temp = append_node(node->neighbours,neighbour);
+	}
+	
+	return temp;
+}
+
+array_node *find_node(arraylist *list,int id_node){
+	array_node *temp = NULL;
+	
+	if(list == NULL){
+		return NULL;
+	}
+	
+	if(list->head == NULL){
+		return NULL;
+	}
+	
+	temp = list->head;
+	
+	while(temp != NULL){
+		
+		if(temp->node_g->id_node == id_node){
+			return temp;
+		}
+		
+		temp = temp->next;
+		
+	}
+	
+	return NULL;
+}
+
+array_node *pop_node(arraylist *list){
+	array_node *temp = NULL;
+	
+	if(list == NULL){
+		return NULL;
+	}
+	
+	temp = list->head;
+	
+	list->head = temp->next;
+	
+	return temp;
 }
 
 /* ____________________________________________________________________________
@@ -202,5 +257,5 @@ void print_list(arraylist *list){
 		printf("%i",temp->node_g->id_node);
 		temp = temp->next;
 	}
-	
+	printf("\n");
 }

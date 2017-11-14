@@ -29,7 +29,10 @@ typedef struct ARRAYLIST{
 array_node *create_array_node(graph_node *node);
 void set_date(array_node *node,char *date);
 arraylist *create_arraylist();
+array_node *add_neighbour(graph_node *node,graph_node *neighbour);
 array_node *append_node(arraylist *list,graph_node *node);
+array_node *find_node(arraylist *list,int id_node);
+array_node *pop_node(arraylist *list);
 void print_list(arraylist *list);
 void dispose_array_nodes(array_node **node);
 void dispose_array_and_graph_nodes(array_node **node);
