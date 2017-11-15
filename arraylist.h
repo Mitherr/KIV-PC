@@ -33,6 +33,7 @@ void set_date(array_node *node,char *date);
 arraylist *create_arraylist();
 array_node *add_neighbour(graph_node *node,graph_node *neighbour);
 array_node *append_node(arraylist *list,graph_node *node);
+array_node *copy_node(arraylist *list,array_node *node);
 array_node *find_node(arraylist *list,int id_node);
 array_node *pop_node(arraylist *list);
 void print_list(arraylist *list);

@@ -122,6 +122,38 @@ array_node *append_node(arraylist *list,graph_node *node){
 	return new_temp;
 }
 
+array_node *copy_node(arraylist *list,array_node *node){
+	array_node *temp = NULL;
+	array_node *new_temp = NULL;
+	
+	if(list == NULL) return;
+	if(node == NULL) return;
+	
+	new_temp = create_array_node(node->node_g);
+	
+	new_temp->day = node->day;
+	new_temp->level = node->level;
+	new_temp->month = node->month;
+	new_temp->node_g = node->node_g;
+	new_temp->previous_path = node->previous_path;
+	new_temp->year = node->year;
+	
+	if(list->head == NULL){
+		list->head = new_temp;
+		return list->head;
+	}
+	
+	temp = list->head;
+	
+	while(temp->next != NULL){
+		temp = temp->next;
+	}
+	
+	temp->next = new_temp;
+	
+	return new_temp;
+}
+
 array_node *add_neighbour(graph_node *node, graph_node *neighbour){
 	array_node *temp = NULL;
 	
@@ -167,6 +199,10 @@ array_node *pop_node(arraylist *list){
 	array_node *temp = NULL;
 	
 	if(list == NULL){
+		return NULL;
+	}
+	
+	if(list->head == NULL){
 		return NULL;
 	}
 	
