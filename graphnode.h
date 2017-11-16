@@ -1,5 +1,6 @@
 #ifndef _GRAPHNODE_H
 #define _GRAPHNODE_H
+
 /* ____________________________________________________________________________
 
     Structures and Datatypes

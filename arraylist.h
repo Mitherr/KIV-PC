@@ -12,9 +12,7 @@ typedef struct ARRAYNODE{
 	struct ARRAYNODE *next;
 	struct ARRAYNODE *previous_path;
 	struct GRAPHNODE *node_g;
-	int year;
-	int month;
-	int day;
+	struct DATE *date;
 	int level;
 }array_node;
 

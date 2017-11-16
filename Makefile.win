@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o graphnode.o arraylist.o comparator.o search.o
-LINKOBJ  = main.o graphnode.o arraylist.o comparator.o search.o
+OBJ      = main.o graphnode.o arraylist.o comparator.o search.o path.o date.o
+LINKOBJ  = main.o graphnode.o arraylist.o comparator.o search.o path.o date.o
 LIBS     = -L"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"D:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -38,3 +38,9 @@ comparator.o: comparator.c
 
 search.o: search.c
 	$(CC) -c search.c -o search.o $(CFLAGS)
+
+path.o: path.c
+	$(CC) -c path.c -o path.o $(CFLAGS)
+
+date.o: date.c
+	$(CC) -c date.c -o date.o $(CFLAGS)

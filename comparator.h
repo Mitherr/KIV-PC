@@ -1,6 +1,6 @@
 #ifndef _COMPARATOR_H
 #define _COMPARATOR_H
-
+#include "date.h"
 
 /* ____________________________________________________________________________
 
@@ -8,7 +8,7 @@
    ____________________________________________________________________________
 */
 
-int compare(array_node*a1,array_node *a2);
-int difference_days(array_node*a1,array_node *a2);
+int compare(date d1,date d2);
+int difference_days(date oldest,date newest);
 
 #endif

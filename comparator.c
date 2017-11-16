@@ -2,87 +2,61 @@
 #include <stdio.h>
 #include <time.h>
 #include "arraylist.h"
+#include "path.h"
+#include "date.h"
 
 
-int compare(array_node *a1,array_node *a2){
-	int y1, y2, m1, m2, d1,d2;
+int compare(date d1,date d2){	
 	
-	y1 = a1->year;
-	y2 = a2->year;
-	
-	if(y1 > y2){
+	if(d1.year > d2.year){
 		return 1;
 	}
-	else if(y2 > y1){
+	else if(d2.year > d1.year){
 		return -1;
 	}
 	
-	m1 = a1->month;
-	m2 = a2->month;
-	
-	if(m1 > m2){
+	if(d1.month > d2.month){
 		return 1;
 	}
-	else if(m2 > m1){
+	else if(d2.month > d1.month){
 		return -1;
 	}
 	
-	d1 = a1->day;
-	d2 = a2->day;
-	
-	if(d1 > d2){
+	if(d1.day > d2.day){
 		return 1;
 	}
-	else if(d2 > d1){
+	else if(d2.day > d1.day){
 		return -1;
 	}
 	else{
 		return 0;
 	}
 	
-	
 }
 
-int difference_days(array_node *a1,array_node *a2){
+int difference_days(date oldest,date newest){
 	int comp, days;
 	struct tm start_date = {0};
 	struct tm end_date = {0};
 	time_t start_time, end_time;
 	double seconds;
 	
-	comp = compare(a1,a2);
-	
-	printf("%i ",comp);
+	comp = compare(oldest,newest);
 	
 	if(comp == 1){
-		start_date.tm_year = a2->year-1900;
-		start_date.tm_mon = a2->month;
-		start_date.tm_mday = a2->day;
+		start_date.tm_year = oldest.year;
+		start_date.tm_mon = oldest.month;
+		start_date.tm_mday = oldest.day;
 		start_date.tm_hour = 0;
 		start_date.tm_min = 0;
 		start_date.tm_sec = 0;
 		
-		end_date.tm_year = a1->year-1900;
-		end_date.tm_mon = a1->month;
-		end_date.tm_mday = a1->day;
+		end_date.tm_year = newest.year;
+		end_date.tm_mon = newest.month;
+		end_date.tm_mday = newest.day;
 		end_date.tm_hour = 0;
 		end_date.tm_min = 0;
 		end_date.tm_sec = 0;
-	}
-	else if(comp == -1){
-		start_date.tm_year = a1->year-1900;
-		start_date.tm_mon = a1->month;
-		start_date.tm_mday = a1->day;
-		start_date.tm_hour = 0;
-		start_date.tm_min = 0;
-		start_date.tm_sec = 0;
-		
-		end_date.tm_year = a2->year-1900;
-		end_date.tm_mon = a2->month;
-		end_date.tm_mday = a2->day;
-		end_date.tm_hour = 0;
-		end_date.tm_min = 0;
-		end_date.tm_sec = 0;	
 	}
 	else{
 		return 0;

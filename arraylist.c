@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "arraylist.h"
 #include "string.h"
+#include "date.h"
 
 /* ____________________________________________________________________________
 
@@ -18,10 +19,7 @@ array_node *create_array_node(graph_node *node){
 	
 	temp = (array_node *) malloc(sizeof(array_node));
 	
-	temp->year = 0;
-	temp->month = 0;
-	temp->day = 0;
-	
+	temp->date = NULL;	
 	temp->node_g = node;
 	temp->next = NULL;
 	temp->previous_path = NULL;
@@ -30,18 +28,20 @@ array_node *create_array_node(graph_node *node){
 	return temp;
 }
 
-void set_date(array_node *node,char *date){
+void set_date(array_node *node,char *date_s){
+	date *d = NULL;
 	int i;
+	
 	char *year = NULL , *month = NULL , *day = NULL ;
 	
-	if(date == NULL || node ==  NULL) return;
+	if(date_s == NULL || node ==  NULL) return;
 	
-	if(strlen(date) != 10) return;
+	if(strlen(date_s) != 10) return;
 	
 	year = (char *) malloc(sizeof(char)*5);
 	
 	for(i=0;i<4;i++){
-		year[i] = date[i];
+		year[i] = date_s[i];
 	}
 	year[4] = '\0';
 	
@@ -50,20 +50,21 @@ void set_date(array_node *node,char *date){
 	month = (char *) malloc(sizeof(char)*3);
 	
 	for(i=0;i<2;i++){
-		month[i] = date[i+5];
+		month[i] = date_s[i+5];
 	}
 	month[2] = '\0';
 	
 	day = (char *) malloc(sizeof(char)*3);
 	
 	for(i=0;i<2;i++){
-		day[i] = date[i+8];
+		day[i] = date_s[i+8];
 	}
 	day[2] = '\0';
 	
-	node->year = atoi(year);
-	node->month = atoi(month);
-	node->day = atoi(day);
+	d = create_date(atoi(year),atoi(month),atoi(day));
+	
+	node->date = d;
+	
 	
 	free(year);
 	free(month);
@@ -131,12 +132,9 @@ array_node *copy_node(arraylist *list,array_node *node){
 	
 	new_temp = create_array_node(node->node_g);
 	
-	new_temp->day = node->day;
-	new_temp->level = node->level;
-	new_temp->month = node->month;
+	new_temp->date = node->date;
 	new_temp->node_g = node->node_g;
 	new_temp->previous_path = node->previous_path;
-	new_temp->year = node->year;
 	
 	if(list->head == NULL){
 		list->head = new_temp;
