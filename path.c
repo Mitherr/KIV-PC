@@ -25,6 +25,17 @@ path *create_path(){
 	temp->difference = -1;
 	temp->length = 0;
 	temp->head = NULL;
+	temp->next = NULL;
+	
+	return temp;
+}
+
+paths *create_paths(){
+	paths *temp = NULL;
+	
+	temp = (paths *) malloc(sizeof(paths));
+	
+	temp->head = NULL;
 	
 	return temp;
 }
@@ -42,10 +53,12 @@ void *append_path_node(path *path,path_node *node){
 	
 	if(path->head == NULL){
 		path->head = node;
+		path->length++;
 	}
 	else{
 		node->next = path->head;
 		path->head = node;
+		path->length++;
 	}
 	
 	if(path->oldest == NULL || path->newest == NULL){
@@ -68,6 +81,44 @@ void *append_path_node(path *path,path_node *node){
 	if(comp == -1){
 		path->newest = node->date;
 	}
+}
+
+void append_path_sorted(paths *paths,path *path_new){
+	path *temp = NULL;
+	
+	path_new->difference = difference_days(path_new->oldest,path_new->newest);
+	
+	if(paths == NULL){
+		return;
+	}
+	
+	if(path_new == NULL){
+		return;
+	}
+	
+	if(paths->head == NULL){
+		paths->head = path_new;
+		return;
+	}
+	
+	if((paths->head->length > path_new->length) || ((paths->head->length == path_new->length) && (paths->head->difference > path_new->difference))){
+		path_new->next = paths->head;
+		paths->head = path_new;
+		return;
+	}
+	
+	temp = paths->head;
+	
+	while(temp->next != NULL){
+		if(temp->next->length > path_new->length || ((temp->next->length == path_new->length)&& (temp->next->difference > path_new->difference))){
+			path_new->next = temp->next;
+			temp->next = path_new;
+			return;
+		}
+		temp = temp->next;
+	}
+	
+	temp->next = path_new;
 }
 
 void dispose_pathnode(path_node **node){
@@ -94,15 +145,26 @@ void dispose_path(path **p){
 	*p = NULL;
 }
 
+void dispose_paths(paths **p){
+	
+	if(*p == NULL){
+		return;
+	}
+	
+	if((*p)->head != NULL) dispose_path(&(*p)->head);
+	
+	free(*p);
+	*p = NULL;
+}
+
 void print_path(path *p){
  	path_node *temp = NULL;
- 	int difference = -1;
  	
  	if(p == NULL){
  		return;
 	 }
 	 
-	 if(p->head = NULL){
+	 if(p->head == NULL){
 	 	return;
 	 }
 	 
@@ -114,8 +176,25 @@ void print_path(path *p){
 	 	temp = temp->next;
 	 }
 	 
-	 difference = difference_days(p->oldest,p->newest);
-	 
-	 printf(";%i-%i-%i,%i-%i-%i;%i\n",p->oldest->year,p->oldest->month,p->oldest->day,p->newest->year,p->newest->month,p->newest->day,difference);
+	 printf(";%i-%i-%i,%i-%i-%i;%i\n",p->newest->year,p->newest->month,p->newest->day,p->oldest->year,p->oldest->month,p->oldest->day,p->difference,p->length);
  	
+}
+
+void print_paths(paths *p){
+	path *temp = NULL;
+	
+	if(p == NULL){
+		return;
+	}
+	
+	if(p->head == NULL){
+		return;
+	}
+	
+	temp = p->head;
+	
+	while(temp != NULL){
+		print_path(temp);
+		temp = temp->next;		
+	}
 }

@@ -46,11 +46,12 @@ int main(int argc, char *argv[]) {
 	array_node *h8 = add_neighbour(g3,g9);
 	set_date(h8,"2008-03-05");
 	array_node *h9 = add_neighbour(g4,g2);
-	set_date(h9,"2007-10-05");
-	array_node *h10 = add_neighbour(g5,g1);
+	set_date(h9,"2007-10-30");
+	array_node *h10 = add_neighbour(g5,g4);
 	set_date(h10,"2007-02-04");
+
 	
-	find_paths(list,1,2,2);
+	find_paths(list,1,2,6);
 		
 	dispose_arraylist(&list);
 	

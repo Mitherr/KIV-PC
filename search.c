@@ -38,9 +38,10 @@ void find_paths_rec(arraylist *open,arraylist *closed,int level,int previous,int
 		}
 		}
 		}while(temp2->next != NULL);
-		
+/*		
 		print_list(open);
 		print_list(closed);
+*/
 	}
 	
 	find_paths_rec(open,closed,level,previous,id_node_end,max_level);
@@ -54,6 +55,7 @@ void find_paths(arraylist *graph,int id_node_start,int id_node_end,int max_level
 	array_node *p = NULL;
 	array_node *temp = NULL;
 	path *path = NULL;
+	paths *paths = NULL;
 	
 	start = find_node(graph,id_node_start);
 	
@@ -76,6 +78,9 @@ void find_paths(arraylist *graph,int id_node_start,int id_node_end,int max_level
 	
 	p = pop_node(closed);
 	
+	paths = create_paths();
+
+	
 	while(p != NULL){
 		if(p->node_g->id_node == id_node_end){			
 		path = create_path();
@@ -85,11 +90,14 @@ void find_paths(arraylist *graph,int id_node_start,int id_node_end,int max_level
 			append_path_node(path,create_path_node(temp));
 			temp = temp->previous_path;
 		}
-		print_path(path);
+		append_path_sorted(paths,path);
 	}
 			p = pop_node(closed);
 	}
 	
+	print_paths(paths);
+	
+	dispose_paths(&paths);
 	dispose_neighbourlist(&open);
 	dispose_neighbourlist(&closed);
 }

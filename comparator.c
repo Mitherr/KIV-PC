@@ -43,20 +43,14 @@ int difference_days(date oldest,date newest){
 	
 	comp = compare(oldest,newest);
 	
-	if(comp == 1){
-		start_date.tm_year = oldest.year;
-		start_date.tm_mon = oldest.month;
+	if(comp == -1){
+		start_date.tm_year = oldest.year - 1900;
+		start_date.tm_mon = oldest.month - 1;
 		start_date.tm_mday = oldest.day;
-		start_date.tm_hour = 0;
-		start_date.tm_min = 0;
-		start_date.tm_sec = 0;
 		
-		end_date.tm_year = newest.year;
-		end_date.tm_mon = newest.month;
+		end_date.tm_year = newest.year - 1900;
+		end_date.tm_mon = newest.month - 1;
 		end_date.tm_mday = newest.day;
-		end_date.tm_hour = 0;
-		end_date.tm_min = 0;
-		end_date.tm_sec = 0;
 	}
 	else{
 		return 0;
