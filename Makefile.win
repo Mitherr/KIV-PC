@@ -1,15 +1,15 @@
-# Project: DFS
+# Project: DFS-GRAPH-PATHS
 # Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o graphnode.o arraylist.o comparator.o search.o path.o date.o
-LINKOBJ  = main.o graphnode.o arraylist.o comparator.o search.o path.o date.o
+OBJ      = main.o date.o list.o neighbours.o predecessor.o dfs.o
+LINKOBJ  = main.o date.o list.o neighbours.o predecessor.o dfs.o
 LIBS     = -L"E:/Programy/Dev-Cpp/MinGW64/lib" -L"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
-BIN      = DFS.exe
+BIN      = DFS-GRAPH-PATHS.exe
 CXXFLAGS = $(CXXINCS) -g3
 CFLAGS   = $(INCS) -g3
 RM       = rm.exe -f
@@ -27,20 +27,17 @@ $(BIN): $(OBJ)
 main.o: main.c
 	$(CC) -c main.c -o main.o $(CFLAGS)
 
-graphnode.o: graphnode.c
-	$(CC) -c graphnode.c -o graphnode.o $(CFLAGS)
-
-arraylist.o: arraylist.c
-	$(CC) -c arraylist.c -o arraylist.o $(CFLAGS)
-
-comparator.o: comparator.c
-	$(CC) -c comparator.c -o comparator.o $(CFLAGS)
-
-search.o: search.c
-	$(CC) -c search.c -o search.o $(CFLAGS)
-
-path.o: path.c
-	$(CC) -c path.c -o path.o $(CFLAGS)
-
 date.o: date.c
 	$(CC) -c date.c -o date.o $(CFLAGS)
+
+list.o: list.c
+	$(CC) -c list.c -o list.o $(CFLAGS)
+
+neighbours.o: neighbours.c
+	$(CC) -c neighbours.c -o neighbours.o $(CFLAGS)
+
+predecessor.o: predecessor.c
+	$(CC) -c predecessor.c -o predecessor.o $(CFLAGS)
+
+dfs.o: dfs.c
+	$(CC) -c dfs.c -o dfs.o $(CFLAGS)
