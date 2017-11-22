@@ -8,7 +8,6 @@
 
 int main(int argc, char *argv[]) {
 
-	while(1){
 	list *graph = create_list();
 	
 	graph_node *gn1 = create_graph_node(1);
@@ -83,7 +82,6 @@ int main(int argc, char *argv[]) {
 	search_paths_dfs(graph,1,3);
 
 	dispose_list(&graph);	
-}
 	
 	return 0;
 }

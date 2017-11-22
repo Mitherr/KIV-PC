@@ -144,3 +144,26 @@ void print_predecessors_list(predecessors_list *list_pr){
 	}
 	printf("-closed\n");
 }
+
+void print_predecessors_predecessor(predecessors_list *list_pr){
+	predecessors *temp = NULL;
+	predecessor_node *temp2 = NULL;
+	
+	if(list_pr == NULL) return;
+	if(list_pr->head == NULL) return;
+	
+	temp = list_pr->head;
+	while(temp != NULL){
+		temp2 = temp->predecessor;
+		printf("%i(",temp->id_node);
+		while(temp2 != NULL){
+			if(temp2->d != NULL){
+			printf("-%i",temp2->previous_path->id_node);
+			}
+			temp2 = temp2->next;
+		}
+		printf(")");
+		temp = temp->next;
+	}
+	printf(" -predecessors\n");
+}

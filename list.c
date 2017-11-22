@@ -109,8 +109,7 @@ graph_node *pop_node_list(list *list_n){
 	 
 	list_n->head = NULL;
 	free(temp2);
-	return temp;
-	
+	return temp;	
 }
 
 graph_node *find_graph_node(list *g,int id_node){
