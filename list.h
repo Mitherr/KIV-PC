@@ -38,4 +38,6 @@ void dispose_graph_node(graph_node **node);
 void dispose_list_graph_nodes(list_graph_node **node);
 void dispose_list(list **list_n);
 
+void print_list(list *list);
+
 #endif

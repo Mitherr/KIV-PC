@@ -16,13 +16,6 @@ edge_node *create_edge_node(graph_node *node,char *date_s){
 	return temp;
 }
 
-void set_opposite_edge(edge_node *first,edge_node *opposite){
-	if(first == NULL || opposite == NULL) return;
-	
-	first->opposite = opposite;
-	opposite->opposite = first;
-}
-
 edges *create_edges(){
 	edges *temp = NULL;
 	
@@ -81,37 +74,6 @@ void append_neighbour(graph_node *node,edge_node *edg_n){
 		return;
 	}
 	
-}
-
-void remove_edge_edges(edges *edge_l,edge_node *edge){
-	edge_node *temp = NULL;
-	edge_node *opposite = NULL;
-	
-	if(edge_l == NULL || edge == NULL || edge->opposite == NULL) return;
-	
-	opposite = edge->opposite;
-	
-	if(edge_l->head == opposite){
-		edge_l->head = opposite->next;
-		opposite->next = NULL;
-		dispose_edge(&opposite);
-		edge->opposite = NULL;
-		return;
-	}
-	
-	temp = edge_l->head;
-	
-	while(temp->next != NULL){
-		if(temp->next == opposite){
-			break;
-		}
-		temp = temp->next;
-	}
-	
-	temp->next = temp->next->next;
-	opposite->next = NULL;
-	opposite->opposite = NULL;
-	dispose_edge(&opposite);
 }
 
 void dispose_single_edge(edge_node **edge_n){

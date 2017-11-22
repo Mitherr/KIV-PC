@@ -13,7 +13,6 @@ typedef struct EDGENODE{
 	struct GRAPHNODE *graph_node;
 	struct DATE *date;
 	struct EDGENODE *next;
-	struct EDGENODE *opposite;
 }edge_node;
 
 typedef struct EDGES{
@@ -28,7 +27,6 @@ typedef struct EDGES{
 
 edge_node *create_edge_node(graph_node *node,char *date_s);
 edges *create_edges();
-void set_opposite_edge(edge_node *first,edge_node *opposite);
 void *append_edge_edges(edges *edges_l,edge_node *edg_n);
 edge_node *pop_edge_edges(edges *edges_l);
 void append_neighbour(graph_node *node,edge_node *edg_n);

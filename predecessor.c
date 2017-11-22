@@ -8,7 +8,12 @@ predecessor_node *create_predecessor(date *d,predecessors *predecessors){
 	temp = (predecessor_node *) malloc(sizeof(predecessor_node));
 	
 	temp->previous_path = predecessors;
+	if(d != NULL){
 	temp->d = create_date(d->year,d->month,d->day);
+	}
+	else{
+	temp->d = NULL;	
+	}
 	temp->next = NULL;
 	
 	return temp;
@@ -123,4 +128,19 @@ void dispose_predecessors_list(predecessors_list **list_pr){
 
 	free(*list_pr);
 	*list_pr = NULL;	
+}
+
+void print_predecessors_list(predecessors_list *list_pr){
+	predecessors *temp = NULL;
+	predecessor_node *temp2 = NULL;
+	
+	if(list_pr == NULL) return;
+	if(list_pr->head == NULL) return;
+	
+	temp = list_pr->head;
+	while(temp != NULL){
+		printf("%i",temp->id_node);
+		temp = temp->next;
+	}
+	printf("-closed\n");
 }

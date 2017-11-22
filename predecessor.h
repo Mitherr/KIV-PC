@@ -41,6 +41,6 @@ void dispose_predecessor_node(predecessor_node **node);
 void dispose_predecessors(predecessors **predecessors_l);
 void dispose_predecessors_list(predecessors_list **list_pr);
 
-
+void print_predecessors_list(predecessors_list *list_pr);
 
 #endif

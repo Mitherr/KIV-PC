@@ -154,3 +154,18 @@ void dispose_list(list **list_n){
 	free(*list_n);
 	*list_n = NULL;
 }
+
+void print_list(list *list_n){
+	list_graph_node *temp = NULL;
+	
+	if(list_n == NULL) return;
+	if(list_n->head == NULL) return;
+	
+	temp = list_n->head;
+	
+	while(temp != NULL){
+		printf("%i",temp->graph_node->id_node);
+		temp = temp->next;
+	}
+	printf("-open\n");
+}
