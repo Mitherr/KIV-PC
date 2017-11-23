@@ -58,26 +58,27 @@ date *create_date_from_str(char *date_s){
 	return date_n;
 }
 
-int compare(date d1,date d2){	
+int compare(date *d1,date *d2){	
+	if(d1 || d2 == NULL) return 0;
 	
-	if(d1.year > d2.year){
+	if(d1->year > d2->year){
 		return 1;
 	}
-	else if(d2.year > d1.year){
+	else if(d2->year > d1->year){
 		return -1;
 	}
 	
-	if(d1.month > d2.month){
+	if(d1->month > d2->month){
 		return 1;
 	}
-	else if(d2.month > d1.month){
+	else if(d2->month > d1->month){
 		return -1;
 	}
 	
-	if(d1.day > d2.day){
+	if(d1->day > d2->day){
 		return 1;
 	}
-	else if(d2.day > d1.day){
+	else if(d2->day > d1->day){
 		return -1;
 	}
 	else{
@@ -86,7 +87,7 @@ int compare(date d1,date d2){
 	
 }
 
-int difference_days(date oldest,date newest){
+int difference_days(date *oldest,date *newest){
 	int comp, days;
 	struct tm start_date = {0};
 	struct tm end_date = {0};
@@ -96,13 +97,13 @@ int difference_days(date oldest,date newest){
 	comp = compare(oldest,newest);
 	
 	if(comp == -1){
-		start_date.tm_year = oldest.year - 1900;
-		start_date.tm_mon = oldest.month - 1;
-		start_date.tm_mday = oldest.day;
+		start_date.tm_year = oldest->year - 1900;
+		start_date.tm_mon = oldest->month - 1;
+		start_date.tm_mday = oldest->day;
 		
-		end_date.tm_year = newest.year - 1900;
-		end_date.tm_mon = newest.month - 1;
-		end_date.tm_mday = newest.day;
+		end_date.tm_year = newest->year - 1900;
+		end_date.tm_mon = newest->month - 1;
+		end_date.tm_mday = newest->day;
 	}
 	else{
 		return 0;

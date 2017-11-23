@@ -4,11 +4,11 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o date.o list.o neighbours.o predecessor.o dfs.o stack.o
-LINKOBJ  = main.o date.o list.o neighbours.o predecessor.o dfs.o stack.o
-LIBS     = -L"E:/Programy/Dev-Cpp/MinGW64/lib" -L"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
-INCS     = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
-CXXINCS  = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
+OBJ      = main.o date.o list.o neighbours.o predecessor.o dfs.o stack.o path.o
+LINKOBJ  = main.o date.o list.o neighbours.o predecessor.o dfs.o stack.o path.o
+LIBS     = -L"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"D:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
+INCS     = -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
 BIN      = DFS-GRAPH-PATHS.exe
 CXXFLAGS = $(CXXINCS) -g3
 CFLAGS   = $(INCS) -g3
@@ -44,3 +44,6 @@ dfs.o: dfs.c
 
 stack.o: stack.c
 	$(CC) -c stack.c -o stack.o $(CFLAGS)
+
+path.o: path.c
+	$(CC) -c path.c -o path.o $(CFLAGS)

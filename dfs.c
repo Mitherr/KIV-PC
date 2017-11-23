@@ -89,6 +89,9 @@ void *search_paths_dfs(list *graph,int id_node_start,int id_node_end){
 	
 	dfs_rec(open,closed,1);
 	
+	print_predecessors_list(closed);
+	print_predecessors_predecessor(closed);
+	
 	dispose_predecessors_list(&closed);
 	dispose_stack(&open);
 }

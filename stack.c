@@ -63,8 +63,6 @@ void dispose_stack_node(stack_node **node){
 	if(*node == NULL) return;
 	
 	if(&(*node)->next != NULL) dispose_stack_node(&(*node)->next);
-	
-	free(*node);
 	*node = NULL;
 }
 
@@ -88,5 +86,5 @@ void print_stack(stack *stck){
 		printf("%i",temp->node->id_node);
 		temp = temp->next;
 	}
-	printf("\n");	
+	printf(" -open\n");	
 }

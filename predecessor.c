@@ -55,13 +55,9 @@ void append_predecessor_predecessors(predecessors *predecessors,predecessor_node
 		return;
 	}
 
-	temp = predecessors->predecessor;
+	node->next = predecessors->predecessor;
+	predecessors->predecessor = node;
 	
-	while(temp->next != NULL){
-		temp = temp->next;
-	}
-	
-	temp->next = node;
 		
 }
 
