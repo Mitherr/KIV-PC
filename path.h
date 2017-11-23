@@ -2,6 +2,7 @@
 #define _PATH_H
 
 #include "date.h"
+#include "predecessor.h"
 
 /* ____________________________________________________________________________
 
@@ -42,6 +43,7 @@ void append_path_node_to_path(path *p,path_node *node);
 void append_path_to_path_list(path_list *paths,path *p);
 path *copy_path(path *p);
 void calculate_difference(path *p);
+path_list *create_path_list_from_predecessors(predecessors_list *pred_l,int id_node_end);
 void print_path(path *p);
 void print_paths_list(path_list *paths);
 void dispose_path_node(path_node **node);

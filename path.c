@@ -29,7 +29,7 @@ path *create_path(){
 	
 	temp->difference_in_days = 0;
 	temp->first = NULL;
-	temp->length = 0;
+	temp->length = -1;
 	temp->newest = NULL;
 	temp->oldest = NULL;
 	temp->next = NULL;
@@ -52,30 +52,41 @@ void append_path_node_to_path(path *p,path_node *node){
 	
 	if(p->first == NULL){
 		p->first = node;
-		p->newest = node->path_date;
-		p->oldest = node->path_date;
+		p->length += 1;
 		return;
 	}
 	
-	if(compare(p->oldest,node->path_date) == 1){
+	if(p->oldest == NULL){
 		p->oldest = node->path_date;
-	}
-	else if(compare(p->newest,node->path_date) == -1){
 		p->newest = node->path_date;
+	}
+	else{
+		if(compare(p->oldest,node->path_date) == 1){
+			p->oldest = node->path_date;
+		}
+		else if(compare(p->newest,node->path_date) == -1){
+			p->newest = node->path_date;
+		}
 	}
 	
 	node->next = p->first;
-	p->first = node;		
+	p->first = node;
+	p->length += 1;		
 }
 
 void append_path_to_path_list(path_list *paths,path *p){
 	path *temp = NULL;
+	
+	if(paths == NULL || p == NULL) return;
+	
+	calculate_difference(p);
 	
 	if(paths->head == NULL){
 		paths->head = p;
 	}
 	
 	temp = paths->head;
+	
 	
 	if((temp->length > p->length) || ((temp->length == p->length) && (temp->difference_in_days > p->difference_in_days))){
 		p->next = temp;
@@ -126,13 +137,58 @@ void calculate_difference(path *p){
 	p->difference_in_days = difference_days(p->oldest,p->newest);
 }
 
+create_path_list_from_predecessors_rec(temp,predecessor){
+	return;
+}
+
+path_list *create_path_list_from_predecessors(predecessors_list *pred_l,int id_node_end){
+	predecessors *node = NULL;
+	predecessor_node *predecessor = NULL;
+	path_list *paths = NULL;
+	path_node *temp = NULL;
+	path *temp2 = NULL;
+	
+	if(pred_l == NULL) return;
+	
+	paths = create_path_list();	
+	temp2 = create_path();
+	
+	node = find_predecessors_in_list(pred_l,id_node_end);
+	
+	if(node->predecessor == NULL) return;
+	
+	predecessor = node->predecessor;
+	
+	temp = create_path_node(node->id_node,NULL);
+	append_path_node_to_path(temp2,temp);
+	
+	while(predecessor != NULL){
+		create_path_list_from_predecessors_rec(temp,predecessor);
+		predecessor = predecessor->previous_path->predecessor;
+	}
+	
+}
+
 void print_path(path *p){
 	path_node *temp = NULL;
 	
 	if(p == NULL) return;
 	
 	if(p->length == 1){
+		printf("%i-%i;%i-%i-%i;%i\n",p->first->id_path_node,p->first->next->id_path_node,p->oldest,p->difference_in_days);
+		return;
 	}
+	
+	temp = p->first->next;
+	
+	printf("%i",p->first->id_path_node);
+	
+	while(temp != NULL){
+		printf("-%i",temp->id_path_node);
+		temp = temp->next;
+	}
+	
+	printf(";%i-%i-%i,%i-%i-%i;%i\n",p->newest->year,p->newest->month,p->newest->day,p->oldest->year,p->oldest->month,p->oldest->day,p->difference_in_days);
 	
 }
 
