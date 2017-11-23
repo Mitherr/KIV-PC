@@ -6,7 +6,7 @@
 #include "stack.h"
 
 
-void dfs_rec(stack *open,predecessors_list *closed,int level){
+void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 		
 	while(open->first != NULL){
 	stack_node *temp = NULL;
@@ -33,12 +33,12 @@ void dfs_rec(stack *open,predecessors_list *closed,int level){
 		temp2 = create_predecessors(temp->node->id_node,temp->d,temp->previous);
 		append_predecessors_predecessors_list(closed,temp2);
 	
-		if(temp->node->neighbours != NULL){
+		if(temp->node->neighbours != NULL && temp->level < max_level){
 			if(temp->node->neighbours->head != NULL){
 				temp4 = temp->node->neighbours->head;
 				while(temp4 != NULL){
-					printf("%i-new neighbour\n",temp4->graph_node->id_node);
-					temp = create_stack_node(temp4->graph_node,temp4->date,temp2,level);
+					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
+					temp = create_stack_node(temp4->graph_node,temp4->date,temp2,temp->level + 1);
 					append_stack_node_to_stack(open,temp);
 					temp4 = temp4->next;
 				}
@@ -49,11 +49,12 @@ void dfs_rec(stack *open,predecessors_list *closed,int level){
 	}
 }
 
-void *search_paths_dfs(list *graph,int id_node_start,int id_node_end){
+void *search_paths_dfs(list *graph,int id_node_start,int id_node_end,int max_level){
 	stack *open = NULL;
 	stack_node *new_node = NULL;
 	predecessors_list *closed = NULL;
 	predecessors *first = NULL;
+	predecessor_node *lol = NULL;
 	graph_node *temp = NULL;
 	edges *temp2 = NULL;
 	edge_node *edge = NULL;
@@ -82,15 +83,25 @@ void *search_paths_dfs(list *graph,int id_node_start,int id_node_end){
 	edge = temp->neighbours->head;
 	
 	while(edge != NULL){
-		new_node = create_stack_node(edge->graph_node,edge->date,first,1);
+		new_node = create_stack_node(edge->graph_node,edge->date,first,0);
 		append_stack_node_to_stack(open,new_node);
 		edge = edge->next;	
 	}
 	
-	dfs_rec(open,closed,1);
+	dfs_rec(open,closed,max_level);
 	
 	print_predecessors_list(closed);
 	print_predecessors_predecessor(closed);
+	
+	first = find_predecessors_in_list(closed,id_node_end);
+	
+	lol = first->predecessor;
+	
+	while(lol != NULL){
+		printf("%i-%i-%i",lol->d->month,lol->d->year,lol->d->month,lol->d->day);
+		lol = lol->previous_path;
+	}
+	
 	
 	dispose_predecessors_list(&closed);
 	dispose_stack(&open);
