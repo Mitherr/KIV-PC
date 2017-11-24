@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include "predecessor.h"
 
-predecessor_node *create_predecessor(date *d,predecessors *predecessors){
+predecessor_node *create_predecessor(int id_predecessor,date *d,predecessor_node *predecessors){
 	predecessor_node *temp = NULL;
 	
 	temp = (predecessor_node *) malloc(sizeof(predecessor_node));
 	
+	temp->id_node = id_predecessor;
 	temp->previous_path = predecessors;
 	if(d != NULL){
 	temp->d = create_date(d->year,d->month,d->day);
@@ -19,16 +20,14 @@ predecessor_node *create_predecessor(date *d,predecessors *predecessors){
 	return temp;
 }
 
-predecessors *create_predecessors(int id_node,date *d,predecessors *predecessors_n){
+predecessors *create_predecessors(int id_node){
 	predecessors *temp = NULL;
 	predecessor_node *new_node = NULL;
 	
 	temp = (predecessors *) malloc(sizeof(predecessors));
 	
-	new_node = create_predecessor(d,predecessors_n);
-	
 	temp->id_node = id_node;
-	temp->predecessor = new_node;
+	temp->predecessor = NULL;
 	temp->next = NULL;
 	
 	return temp;
@@ -52,6 +51,7 @@ void append_predecessor_predecessors(predecessors *predecessors,predecessor_node
 	}
 	
 	if(predecessors->predecessor == NULL){
+		predecessors->predecessor = node;
 		return;
 	}
 
@@ -95,6 +95,20 @@ predecessors *find_predecessors_in_list(predecessors_list *list_pr,int id_node){
 	}
 	
 	return NULL;
+}
+
+int predeccesor_contains_id(predecessor_node *node,int id_node){
+	predecessor_node *temp = NULL;
+	
+	temp = node->previous_path;
+	
+	while(temp != NULL){
+		if(temp->id_node == id_node){
+			return 1;
+		}
+		temp = temp->previous_path;
+	}
+	return 0;
 }
 
 void dispose_predecessor_node(predecessor_node **node){
@@ -141,6 +155,23 @@ void print_predecessors_list(predecessors_list *list_pr){
 	printf("-closed\n");
 }
 
+void print_previous_path(predecessor_node *node){
+	predecessor_node *temp = NULL;
+	
+	if(node == NULL) return;
+	
+	printf("%i",node->id_node);
+	
+	temp = node->previous_path;
+	
+	while(temp != NULL){
+		printf("-%i",temp->id_node);
+		temp = temp->previous_path;
+	}
+	
+	printf(" -path\n");
+}
+
 void print_predecessors_predecessor(predecessors_list *list_pr){
 	predecessors *temp = NULL;
 	predecessor_node *temp2 = NULL;
@@ -153,7 +184,7 @@ void print_predecessors_predecessor(predecessors_list *list_pr){
 		temp2 = temp->predecessor;
 		printf("%i(",temp->id_node);
 		while(temp2 != NULL){
-			if(temp2->d != NULL){
+			if(temp2->previous_path != NULL){
 			printf("-%i",temp2->previous_path->id_node);
 			}
 			temp2 = temp2->next;

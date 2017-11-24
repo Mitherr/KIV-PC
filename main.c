@@ -79,7 +79,7 @@ int main(int argc, char *argv[]) {
 	edge_node *e10o = create_edge_node(gn5,"2007-02-04");
 	append_neighbour(gn1,e10o);
 
-	search_paths_dfs(graph,1,3,10);
+	search_paths_dfs(graph,1,2,1);
 
 	dispose_list(&graph);	
 	

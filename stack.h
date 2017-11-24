@@ -14,7 +14,7 @@
 typedef struct STACKNODE{
 	struct DATE *d;
 	struct GRAPHNODE *node;
-	struct PREDECESSORS *previous;
+	struct PREDECESSORNODE *previous;
 	int level;
 	struct STACKNODE *next;
 }stack_node;
@@ -29,7 +29,7 @@ typedef struct STACK{
    ____________________________________________________________________________
 */
 
-stack_node *create_stack_node(graph_node *node,date *d,predecessors *previous,int level);
+stack_node *create_stack_node(graph_node *node,date *d,predecessor_node *previous,int level);
 stack *create_stack();
 void append_stack_node_to_stack(stack *stck,stack_node *node);
 stack_node *pop_stack(stack *stck);

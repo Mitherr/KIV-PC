@@ -5,7 +5,7 @@
 #include "date.h"
 #include "predecessor.h"
 
-stack_node *create_stack_node(graph_node *node,date *d,predecessors *previous,int level){
+stack_node *create_stack_node(graph_node *node,date *d,predecessor_node *previous,int level){
 	stack_node *temp = NULL;
 	
 	if(node == NULL) return;
