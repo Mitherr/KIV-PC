@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o date.o graph.o neighbours.o predecessor.o dfs.o stack.o path.o dateloader.o
-LINKOBJ  = main.o date.o graph.o neighbours.o predecessor.o dfs.o stack.o path.o dateloader.o
+OBJ      = main.o date.o graph.o neighbours.o predecessor.o dfs.o stack.o path.o dataloader.o
+LINKOBJ  = main.o date.o graph.o neighbours.o predecessor.o dfs.o stack.o path.o dataloader.o
 LIBS     = -L"E:/Programy/Dev-Cpp/MinGW64/lib" -L"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -48,5 +48,5 @@ stack.o: stack.c
 path.o: path.c
 	$(CC) -c path.c -o path.o $(CFLAGS)
 
-dateloader.o: dateloader.c
-	$(CC) -c dateloader.c -o dateloader.o $(CFLAGS)
+dataloader.o: dataloader.c
+	$(CC) -c dataloader.c -o dataloader.o $(CFLAGS)

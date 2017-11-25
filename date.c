@@ -24,7 +24,7 @@ date *create_date_from_str(char *date_s){
 	
 	if(date_s == NULL) return;
 	
-	if(strlen(date_s) != 10) return;
+	if(strlen(date_s) > 11 ) return;
 	
 	year = (char *) malloc(sizeof(char)*5);
 	
