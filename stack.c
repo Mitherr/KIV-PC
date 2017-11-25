@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "stack.h"
-#include "list.h"
 #include "date.h"
 #include "predecessor.h"
 
@@ -63,6 +62,8 @@ void dispose_stack_node(stack_node **node){
 	if(*node == NULL) return;
 	
 	if(&(*node)->next != NULL) dispose_stack_node(&(*node)->next);
+	
+	free(*node);
 	*node = NULL;
 }
 

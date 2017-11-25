@@ -59,7 +59,7 @@ date *create_date_from_str(char *date_s){
 }
 
 int compare(date *d1,date *d2){	
-	if(d1 || d2 == NULL) return 0;
+	if(d1 == NULL || d2 == NULL) return 0;
 	
 	if(d1->year > d2->year){
 		return 1;
@@ -94,20 +94,16 @@ int difference_days(date *oldest,date *newest){
 	time_t start_time, end_time;
 	double seconds;
 	
-	comp = compare(oldest,newest);
+	if(oldest == newest) return 0;
 	
-	if(comp == -1){
-		start_date.tm_year = oldest->year - 1900;
-		start_date.tm_mon = oldest->month - 1;
-		start_date.tm_mday = oldest->day;
-		
-		end_date.tm_year = newest->year - 1900;
-		end_date.tm_mon = newest->month - 1;
-		end_date.tm_mday = newest->day;
-	}
-	else{
-		return 0;
-	}
+	
+	start_date.tm_year = oldest->year - 1900;
+	start_date.tm_mon = oldest->month - 1;
+	start_date.tm_mday = oldest->day;
+	
+	end_date.tm_year = newest->year - 1900;
+	end_date.tm_mon = newest->month - 1;
+	end_date.tm_mday = newest->day;
 	
 	start_time = mktime(&start_date);
 	end_time = mktime(&end_date);
@@ -117,6 +113,22 @@ int difference_days(date *oldest,date *newest){
  	days = seconds / 86400; 
 	
 	return days;
+}
+
+void print_date(date *d){
+	
+	if(d->month < 9 && d->day < 9){
+		printf("%i-0%i-0%i",d->year,d->month,d->day);
+	}
+	else if(d->month < 9){
+		printf("%i-0%i-%i",d->year,d->month,d->day);
+	}
+	else if(d->day < 9){
+		printf("%i-%i-0%i",d->year,d->month,d->day);
+	}
+	else{
+		printf("%i-%i-%i",d->year,d->month,d->day);	
+	}
 }
 
 void dispose_date(date **d){

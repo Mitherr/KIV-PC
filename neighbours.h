@@ -1,7 +1,7 @@
 #ifndef _NEIGHBOURS_H
 #define _NEIGHBOURS_H
 
-#include "list.h"
+#include "graph.h"
 
 /* ____________________________________________________________________________
 

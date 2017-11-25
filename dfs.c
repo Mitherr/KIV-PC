@@ -1,32 +1,34 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
+#include "graph.h"
 #include "predecessor.h"
 #include "neighbours.h"
 #include "stack.h"
+#include "path.h"
 
 
 void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 		
 	while(open->first != NULL){
 	stack_node *temp = NULL;
+	stack_node *new_temp = NULL;
 	predecessors *temp2 = NULL;
 	predecessor_node *temp3 = NULL;
 	edge_node *temp4 = NULL;
 	edges *temp5 = NULL;
 	
-	print_stack(open);
-	print_predecessors_list(closed);
-	print_predecessors_predecessor(closed);
+//	print_stack(open);
+//	print_predecessors_list(closed);
+//	print_predecessors_predecessor(closed);
 	
 	temp = pop_stack(open);
-	printf("%i-pop\n",temp->node->id_node);
+//	printf("%i-pop\n",temp->node->id_node);
 	
 	temp2 = find_predecessors_in_list(closed,temp->node->id_node);
 	
 	if(temp2 != NULL ){
 		if( predeccesor_contains_id(temp->previous,temp->node->id_node) == 0){
-		printf("adding predecesor %i to %i \n",temp->previous->id_node,temp->node->id_node);
+//		printf("adding predecesor %i to %i \n",temp->previous->id_node,temp->node->id_node);
 		temp3 = create_predecessor(temp->node->id_node,temp->d,temp->previous);
 		append_predecessor_predecessors(temp2,temp3);
 		
@@ -34,9 +36,9 @@ void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 			if(temp->node->neighbours->head != NULL){
 				temp4 = temp->node->neighbours->head;
 				while(temp4 != NULL){
-					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
-					temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
-					append_stack_node_to_stack(open,temp);
+//					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
+					new_temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
+					append_stack_node_to_stack(open,new_temp);
 					temp4 = temp4->next;
 				}
 			}
@@ -54,25 +56,26 @@ void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 			if(temp->node->neighbours->head != NULL){
 				temp4 = temp->node->neighbours->head;
 				while(temp4 != NULL){
-					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
-					temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
-					append_stack_node_to_stack(open,temp);
+//					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
+					new_temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
+					append_stack_node_to_stack(open,new_temp);
 					temp4 = temp4->next;
 				}
 			}
 		}
 	}
-	
+	dispose_stack_node(&temp);
 	}
 }
 
-void *search_paths_dfs(list *graph,int id_node_start,int id_node_end,int max_level){
+void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int max_level){
 	stack *open = NULL;
 	stack_node *new_node = NULL;
 	predecessors_list *closed = NULL;
 	predecessors *first = NULL;
 	predecessor_node *first_node = NULL;
 	predecessor_node *lol = NULL;
+	path_list *paths = NULL;
 	graph_node *temp = NULL;
 	edges *temp2 = NULL;
 	edge_node *edge = NULL;
@@ -110,13 +113,12 @@ void *search_paths_dfs(list *graph,int id_node_start,int id_node_end,int max_lev
 	
 	dfs_rec(open,closed,max_level);
 	
-	print_predecessors_list(closed);
-	print_predecessors_predecessor(closed);
-	
 	first = find_predecessors_in_list(closed,id_node_end);
 	
-	print_previous_path(first->predecessor->next);
+	paths = create_paths_from_predecessors(first,id_node_end);
+	print_paths_list(paths);
 	
+	dispose_path_list(&paths);
 	dispose_predecessors_list(&closed);
 	dispose_stack(&open);
 }

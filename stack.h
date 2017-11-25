@@ -2,7 +2,6 @@
 #define _STACK_H
 
 #include "date.h"
-#include "list.h"
 #include "predecessor.h"
 
 /* ____________________________________________________________________________

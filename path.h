@@ -36,14 +36,12 @@ typedef struct PATHLIST{
 */
 
 path_node *create_path_node(int id_path,date *d);
-path_node *copy_path_node(path_node *node);
 path *create_path();
 path_list *create_path_list();
 void append_path_node_to_path(path *p,path_node *node);
-void append_path_to_path_list(path_list *paths,path *p);
-path *copy_path(path *p);
+void append_paths_to_path_list(path_list *paths,path *p);
 void calculate_difference(path *p);
-path_list *create_path_list_from_predecessors(predecessors_list *pred_l,int id_node_end);
+path_list *create_paths_from_predecessors(predecessors *end_node,int id_node_end);
 void print_path(path *p);
 void print_paths_list(path_list *paths);
 void dispose_path_node(path_node **node);

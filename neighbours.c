@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "neighbours.h"
-#include "list.h"
+#include "graph.h"
 #include "date.h"
 
 edge_node *create_edge_node(graph_node *node,char *date_s){

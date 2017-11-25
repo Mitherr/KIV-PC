@@ -9,12 +9,7 @@ predecessor_node *create_predecessor(int id_predecessor,date *d,predecessor_node
 	
 	temp->id_node = id_predecessor;
 	temp->previous_path = predecessors;
-	if(d != NULL){
-	temp->d = create_date(d->year,d->month,d->day);
-	}
-	else{
-	temp->d = NULL;	
-	}
+	temp->d = d;	
 	temp->next = NULL;
 	
 	return temp;
@@ -114,7 +109,6 @@ int predeccesor_contains_id(predecessor_node *node,int id_node){
 void dispose_predecessor_node(predecessor_node **node){
 	if(*node == NULL) return;
 
-	if(&(*node)->d != NULL) dispose_date(&(*node)->d);
 	if(&(*node)->next != NULL) dispose_predecessor_node(&(*node)->next);
 	
 	free(*node);

@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "list.h"
+#include "graph.h"
 #include "date.h"
 #include "predecessor.h"
 
@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) {
 
-	list *graph = create_list();
+	graph_list *graph = create_graph_list();
 	
 	graph_node *gn1 = create_graph_node(1);
 	graph_node *gn2 = create_graph_node(2);
@@ -79,9 +79,9 @@ int main(int argc, char *argv[]) {
 	edge_node *e10o = create_edge_node(gn5,"2007-02-04");
 	append_neighbour(gn1,e10o);
 
-	search_paths_dfs(graph,1,2,1);
+	search_paths_dfs(graph,1,2,5);
 
-	dispose_list(&graph);	
+	dispose_list(&graph);
 	
 	return 0;
 }
