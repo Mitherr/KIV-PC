@@ -100,14 +100,14 @@ graph_list *load_graph_from_file(char *file_name){
 			break;
 		}
 		
-		append_neighbour(temp1,temp);		
+		append_edge_edges(temp1->neighbours,temp);		
 		temp = create_edge_node(temp1,token);		
 		if(temp == NULL){
 			error = 1;
 			break;
 		}
 		
-		append_neighbour(temp2,temp);
+		append_edge_edges(temp2->neighbours,temp);
    }
 
     fclose(fp);

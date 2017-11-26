@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
+#include "neighbours.h"
 
 /* ____________________________________________________________________________
 
@@ -14,6 +15,7 @@
 
 graph_node *create_graph_node(int id_node){
 	graph_node *temp = NULL;
+	edges *temp_e = NULL;
 	
 	temp = (graph_node *) malloc(sizeof(graph_node));
 	if(temp == NULL){
@@ -21,8 +23,14 @@ graph_node *create_graph_node(int id_node){
 		return NULL;
 	}
 	
+	temp_e = create_edges();
+	if(temp_e == NULL){
+		free(temp);
+		return NULL;
+	}
+	
 	temp->id_node = id_node;
-	temp->neighbours = NULL;
+	temp->neighbours = temp_e;
 	
 	return temp;	
 }

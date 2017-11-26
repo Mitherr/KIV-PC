@@ -6,13 +6,23 @@
 
 edge_node *create_edge_node(graph_node *node,char *date_s){
 	edge_node *temp = NULL;
+	date *temp_d = NULL;
+	
+	if(node == NULL || date_s == NULL) return NULL;
 	
 	temp = (edge_node*) malloc(sizeof(edge_node));
 	if(temp == NULL){
 		printf("Out of memory (edge_node)\n");
+		return NULL;
 	}
 	
-	temp->date = create_date_from_str(date_s);
+	temp_d = create_date_from_str(date_s);
+	if(temp_d == NULL){
+		free(temp);
+		return NULL;
+	}
+	
+	temp->date = temp_d;
 	temp->graph_node = node;
 	temp->next = NULL;
 	
@@ -23,6 +33,10 @@ edges *create_edges(){
 	edges *temp = NULL;
 	
 	temp = (edges *) malloc(sizeof(edges));
+	if(temp == NULL){
+		printf("Out of memory (edges)\n");
+		return NULL;
+	}
 	
 	temp->head = NULL;
 	
@@ -32,8 +46,7 @@ edges *create_edges(){
 void *append_edge_edges(edges *edges_l,edge_node *edg_n){
 	edge_node *temp = NULL;
 	
-	if(edges_l == NULL) return;
-	if(edg_n == NULL) return;
+	if(edges_l == NULL || edg_n == NULL) return;
 	
 	if(edges_l->head == NULL){
 		edges_l->head = edg_n;
@@ -62,21 +75,6 @@ edge_node *pop_edge_edges(edges *edges_l){
 	}
 	
 	return NULL;
-}
-
-void append_neighbour(graph_node *node,edge_node *edg_n){
-	if(node == NULL || edg_n == NULL) return;
-	
-	if(node->neighbours == NULL){
-		node->neighbours = create_edges();
-		append_edge_edges(node->neighbours,edg_n);
-		return;
-	}
-	else{
-		append_edge_edges(node->neighbours,edg_n);
-		return;
-	}
-	
 }
 
 void dispose_single_edge(edge_node **edge_n){
