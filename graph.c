@@ -16,6 +16,10 @@ graph_node *create_graph_node(int id_node){
 	graph_node *temp = NULL;
 	
 	temp = (graph_node *) malloc(sizeof(graph_node));
+	if(temp == NULL){
+		printf("Out of memory (graph_node)");
+		return NULL;
+	}
 	
 	temp->id_node = id_node;
 	temp->neighbours = NULL;
@@ -26,11 +30,13 @@ graph_node *create_graph_node(int id_node){
 list_graph_node *create_list_graph_node(graph_node *node){
 	list_graph_node * temp = NULL;
 	
-	if(node == NULL){
-		return temp;
-	}
+	if(node == NULL) return NULL;
 
 	temp = (list_graph_node *) malloc(sizeof(list_graph_node));
+	if(temp == NULL){
+		printf("Out of memory (list_node)");
+		return NULL;
+	}
 	
 	temp->graph_node = node;
 	temp->next = NULL;	
@@ -39,29 +45,36 @@ list_graph_node *create_list_graph_node(graph_node *node){
 }
 
 graph_list *create_graph_list(){
-graph_list * temp = NULL;
-
-temp = (graph_list *) malloc(sizeof(graph_list));
-
-temp->head = NULL;
-
-return temp;
+	graph_list * temp = NULL;
+	
+	temp = (graph_list *) malloc(sizeof(graph_list));
+	if(temp == NULL){
+		printf("Out of memory (graph_list)");
+		return NULL;
+	}
+	
+	temp->head = NULL;
+	
+	return temp;
 }
 
-list_graph_node *append_node_list_end(graph_list *list_n,graph_node *node){
+list_graph_node *append_node_list_end(graph_list *graph,graph_node *node){
 	list_graph_node *temp = NULL;
 	list_graph_node *new_temp = NULL;
 	
-	if(list_n == NULL || node == NULL) return;
+	if(graph == NULL || node == NULL) return;
 	
 	new_temp = create_list_graph_node(node);
-	
-	if(list_n->head == NULL){
-		list_n->head = new_temp;
-		return list_n->head;
+	if(new_temp == NULL){
+		return NULL;
 	}
 	
-	temp = list_n->head;
+	if(graph->head == NULL){
+		graph->head = new_temp;
+		return graph->head;
+	}
+	
+	temp = graph->head;
 	
 	while(temp->next != NULL){
 		temp = temp->next;
@@ -76,9 +89,9 @@ graph_node *pop_node_graph_list(graph_list *graph){
 	graph_node *temp = NULL;
 	list_graph_node *temp2 = NULL;
 	
-	if(graph->head == NULL){
-		return NULL;
-	}
+	if(graph == NULL) return NULL;
+	
+	if(graph->head == NULL) return NULL;
 	
 	temp = graph->head->graph_node;
 	temp2 = graph->head;
@@ -97,6 +110,8 @@ graph_node *pop_node_graph_list(graph_list *graph){
 graph_node *find_graph_node(graph_list *graph,int id_node){
 	list_graph_node *temp = NULL;
 	
+	if(graph == NULL) return NULL;
+	
 	temp = graph->head;
 	
 	while(temp != NULL){
@@ -105,7 +120,23 @@ graph_node *find_graph_node(graph_list *graph,int id_node){
 		}
 		temp = temp->next;	
 	}
+	
 	return NULL;
+}
+
+void print_graph(graph_list *graph){
+	list_graph_node *temp = NULL;
+	
+	if(graph == NULL) return;
+	if(graph->head == NULL) return;
+	
+	temp = graph->head;
+	
+	while(temp != NULL){
+		printf("%i",temp->graph_node->id_node);
+		temp = temp->next;
+	}
+	printf("-open\n");
 }
 
 void dispose_graph_node(graph_node **node){
@@ -127,26 +158,11 @@ void dispose_list_graph_nodes(list_graph_node **node){
 	*node = NULL;
 }
 
-void dispose_list(graph_list **graph){
+void dispose_graph_list(graph_list **graph){
 	if(*graph == NULL) return;
 	
 	if((*graph)->head != NULL) dispose_list_graph_nodes(&(*graph)->head);
 	
 	free(*graph);
 	*graph = NULL;
-}
-
-void print_list(graph_list *graph){
-	list_graph_node *temp = NULL;
-	
-	if(graph == NULL) return;
-	if(graph->head == NULL) return;
-	
-	temp = graph->head;
-	
-	while(temp != NULL){
-		printf("%i",temp->graph_node->id_node);
-		temp = temp->next;
-	}
-	printf("-open\n");
 }

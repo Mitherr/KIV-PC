@@ -8,6 +8,10 @@ date *create_date(int year,int month,int day){
 	date *temp = NULL;
 	
 	temp = (date *) malloc(sizeof(date));
+	if(temp == NULL){
+		printf("Out of memory (date)\n");
+		return NULL;
+	}
 	
 	temp->year = year;
 	temp->month = month;
@@ -19,14 +23,19 @@ date *create_date(int year,int month,int day){
 date *create_date_from_str(char *date_s){
 	date *date_n = NULL;
 	int i;
+	int year_i = 0;
+	int month_i = 0;
+	int day_i = 0;
 	
 	char *year = NULL , *month = NULL , *day = NULL ;
 	
-	if(date_s == NULL) return;
-	
-	if(strlen(date_s) > 11 ) return;
+	if(date_s == NULL) return NULL;
 	
 	year = (char *) malloc(sizeof(char)*5);
+	if(year == NULL){
+		printf("Out of memory (date->year)\n");
+		return NULL;
+	}
 	
 	for(i=0;i<4;i++){
 		year[i] = date_s[i];
@@ -36,6 +45,11 @@ date *create_date_from_str(char *date_s){
 	
 		
 	month = (char *) malloc(sizeof(char)*3);
+	if(month == NULL){
+		printf("Out of memory (date->month)\n");
+		free(year);
+		return NULL;
+	}
 	
 	for(i=0;i<2;i++){
 		month[i] = date_s[i+5];
@@ -43,13 +57,25 @@ date *create_date_from_str(char *date_s){
 	month[2] = '\0';
 	
 	day = (char *) malloc(sizeof(char)*3);
+	if(month == NULL){
+		printf("Out of memory (date->day)\n");
+		free(year);
+		free(month);
+		return NULL;
+	}
 	
 	for(i=0;i<2;i++){
 		day[i] = date_s[i+8];
 	}
 	day[2] = '\0';
 	
-	date_n = create_date(atoi(year),atoi(month),atoi(day));
+	year_i = atoi(year);
+	month_i = atoi(month);
+	day_i = atoi(day);
+	
+	if(year_i != 0 && month_i != 0 && day_i != 0){
+	date_n = create_date(year_i,month_i,day_i);
+	}
 	
 	free(year);
 	free(month);
@@ -106,7 +132,16 @@ int difference_days(date *oldest,date *newest){
 	end_date.tm_mday = newest->day;
 	
 	start_time = mktime(&start_date);
+	if(start_time == -1){
+		printf("Cannot create time_t from newst_date\n");
+		return 0;
+	}
+	
 	end_time = mktime(&end_date);
+	if(start_time == -1){
+		printf("Cannot create time_t from oldest_date\n");
+		return 0;
+	}
 
  	seconds = difftime(end_time, start_time);
  	

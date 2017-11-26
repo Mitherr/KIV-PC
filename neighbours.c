@@ -8,6 +8,9 @@ edge_node *create_edge_node(graph_node *node,char *date_s){
 	edge_node *temp = NULL;
 	
 	temp = (edge_node*) malloc(sizeof(edge_node));
+	if(temp == NULL){
+		printf("Out of memory (edge_node)\n");
+	}
 	
 	temp->date = create_date_from_str(date_s);
 	temp->graph_node = node;
