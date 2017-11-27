@@ -6,9 +6,29 @@ path_node *create_path_node(int id_path,date *d){
 	path_node *temp = NULL;
 	
 	temp = (path_node *) malloc(sizeof(path_node));
+	if(temp == NULL){
+		printf("Out of memory (path_node)\n");
+		return NULL;
+	}
 	
 	temp->id_path_node = id_path;
 	temp->path_date = d;
+	temp->next = NULL;
+	
+	return temp;
+}
+
+path_node *create_last_path_node(int id_path){
+	path_node *temp = NULL;
+	
+	temp = (path_node *) malloc(sizeof(path_node));
+	if(temp == NULL){
+		printf("Out of memory (path_node)\n");
+		return NULL;
+	}
+	
+	temp->id_path_node = id_path;
+	temp->path_date = NULL;
 	temp->next = NULL;
 	
 	return temp;
@@ -18,6 +38,10 @@ path *create_path(){
 	path *temp = NULL;
 	
 	temp = (path *) malloc(sizeof(path));
+	if(temp == NULL){
+		printf("Out of memory (path_node)\n");
+		return NULL;
+	}
 	
 	temp->difference_in_days = 0;
 	temp->first = NULL;
@@ -33,6 +57,10 @@ path_list *create_path_list(){
 	path_list *temp = NULL;
 	
 	temp = (path_list *) malloc(sizeof(path_list));
+	if(temp == NULL){
+		printf("Out of memory (path_list)");
+		return NULL;
+	}
 	
 	temp->head = NULL;
 	
@@ -96,6 +124,8 @@ void append_paths_to_path_list(path_list *paths,path *p){
 }
 
 void calculate_difference(path *p){
+	if(p == NULL) return;
+	
 	p->difference_in_days = difference_days(p->oldest,p->newest);
 }
 
@@ -108,22 +138,56 @@ path_list *create_paths_from_predecessors(predecessors *end_node,int id_node_end
 	path_list * paths = NULL;
 	path_node *path_n = NULL;
 	int i = 0;
+	int error = 0;
 	
-	if(end_node->predecessor == NULL) return;
+	if(end_node->predecessor == NULL) return NULL;
 	
 	temp = end_node->predecessor;
 	paths = create_path_list();
+	if(paths == NULL){
+		return NULL;
+	}
 	
 	while(temp != NULL){
 	new_p = create_path();
+	if(new_p == NULL){
+		error = 1;
+		break;
+	}
+	
 	path_n = create_path_node(temp->id_node,temp->d);
+	if(path_n == NULL){
+		error = 1;
+		dispose_path(&new_p);
+		break;
+	}
+	
 	append_path_node_to_path(new_p,path_n);
 	temp2 = temp->previous_path;
 		while(temp2 != NULL){
-			path_n = create_path_node(temp2->id_node,temp2->d);
+			if(temp->previous_path != NULL){
+				path_n = create_path_node(temp2->id_node,temp2->d);
+				if(path_n == NULL){
+					error = 1;
+					break;
+				}
+			}
+			else{
+				path_n = create_last_path_node(temp2->id_node);
+				if(path_n == NULL){
+					error = 1;
+					break;
+				}
+			}
 			append_path_node_to_path(new_p,path_n);
 			temp2 = temp2->previous_path;
 		}
+	if(error == 1){
+		dispose_path_list(&paths);
+		dispose_path(&new_p);
+		return NULL;
+	}
+	
 	append_paths_to_path_list(paths,new_p);
 	temp=temp->next;
 	}

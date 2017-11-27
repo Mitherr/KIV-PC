@@ -19,7 +19,7 @@ graph_node *create_graph_node(int id_node){
 	
 	temp = (graph_node *) malloc(sizeof(graph_node));
 	if(temp == NULL){
-		printf("Out of memory (graph_node)");
+		printf("Out of memory (graph_node)\n");
 		return NULL;
 	}
 	
@@ -42,7 +42,7 @@ list_graph_node *create_list_graph_node(graph_node *node){
 
 	temp = (list_graph_node *) malloc(sizeof(list_graph_node));
 	if(temp == NULL){
-		printf("Out of memory (list_node)");
+		printf("Out of memory (list_node)\n");
 		return NULL;
 	}
 	
@@ -57,7 +57,7 @@ graph_list *create_graph_list(){
 	
 	temp = (graph_list *) malloc(sizeof(graph_list));
 	if(temp == NULL){
-		printf("Out of memory (graph_list)");
+		printf("Out of memory (graph_list)\n");
 		return NULL;
 	}
 	

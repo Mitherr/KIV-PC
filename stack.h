@@ -32,9 +32,8 @@ stack_node *create_stack_node(graph_node *node,date *d,predecessor_node *previou
 stack *create_stack();
 void append_stack_node_to_stack(stack *stck,stack_node *node);
 stack_node *pop_stack(stack *stck);
+void print_stack(stack *stck);
 void dispose_stack_node(stack_node **node);
 void dispose_stack(stack **stck);
-
-void print_stack(stack *stck);
 
 #endif

@@ -36,6 +36,7 @@ typedef struct PATHLIST{
 */
 
 path_node *create_path_node(int id_path,date *d);
+path_node *create_last_path_node(int id_path);
 path *create_path();
 path_list *create_path_list();
 void append_path_node_to_path(path *p,path_node *node);

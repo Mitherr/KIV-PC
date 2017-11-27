@@ -99,7 +99,7 @@ void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int m
 	}
 	
 	first = create_predecessors(id_node_start);
-	first_node = create_predecessor(id_node_start,NULL,NULL);
+	first_node = create_first_predecessor(id_node_start);
 	append_predecessor_predecessors(first,first_node);
 	append_predecessors_predecessors_list(closed,first);
 	

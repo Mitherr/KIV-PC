@@ -7,9 +7,13 @@
 stack_node *create_stack_node(graph_node *node,date *d,predecessor_node *previous,int level){
 	stack_node *temp = NULL;
 	
-	if(node == NULL) return;
+	if(node == NULL || d == NULL || previous == NULL) return;
 	
 	temp = (stack_node *) malloc(sizeof(stack_node));
+	if(temp == NULL){
+		printf("Out of memory (stack_node)\n");
+		return NULL;
+	}
 	
 	temp->d = d;
 	temp->level = level;
@@ -24,6 +28,10 @@ stack *create_stack(){
 	stack *temp = NULL;
 	
 	temp = (stack *) malloc(sizeof(stack));
+	if(temp == NULL){
+		printf("Out of memory (stack)\n");
+		return NULL;
+	}
 	
 	temp->first = NULL;
 	
@@ -44,7 +52,7 @@ void append_stack_node_to_stack(stack *stck,stack_node *node){
 
 stack_node *pop_stack(stack *stck){
 	stack_node *temp = NULL;
-	if(stck == NULL) return;
+	if(stck == NULL) return NULL;
 	
 	if(stck->first == NULL){
 		return NULL;
@@ -56,6 +64,20 @@ stack_node *pop_stack(stack *stck){
 	temp->next = NULL;
 	
 	return temp;
+}
+
+void print_stack(stack *stck){
+	stack_node *temp = NULL;
+	
+	if(stck == NULL)return;
+	
+	temp = stck->first;
+	
+	while(temp != NULL){
+		printf("%i",temp->node->id_node);
+		temp = temp->next;
+	}
+	printf(" -open\n");	
 }
 
 void dispose_stack_node(stack_node **node){
@@ -74,18 +96,4 @@ void dispose_stack(stack **stck){
 	
 	free(*stck);
 	*stck = NULL;
-}
-
-void print_stack(stack *stck){
-	stack_node *temp = NULL;
-	
-	if(stck == NULL)return;
-	
-	temp = stck->first;
-	
-	while(temp != NULL){
-		printf("%i",temp->node->id_node);
-		temp = temp->next;
-	}
-	printf(" -open\n");	
 }
