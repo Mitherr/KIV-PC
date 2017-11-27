@@ -82,43 +82,38 @@ void *append_node_list_end(graph_list *graph,graph_node *node){
 		temp = temp->next;
 	}
 	
-	temp->next = new_temp;
-	
-	return new_temp;
+	temp->next = node;
+
 }
 
 graph_node *pop_node_graph_list(graph_list *graph){
 	graph_node *temp = NULL;
-	list_graph_node *temp2 = NULL;
 	
 	if(graph == NULL) return NULL;
 	
 	if(graph->head == NULL) return NULL;
-	
-	temp = graph->head->graph_node;
-	temp2 = graph->head;
+	 
+	 temp = graph->head;
 	 
 	 if(graph->head->next != NULL){
 	 	graph->head = graph->head->next;
-	 	free(temp2);
 	 	return temp;
 	 }
 	 
 	graph->head = NULL;
-	free(temp2);
 	return temp;	
 }
 
 graph_node *find_graph_node(graph_list *graph,int id_node){
-	list_graph_node *temp = NULL;
+	graph_node *temp = NULL;
 	
 	if(graph == NULL) return NULL;
 	
 	temp = graph->head;
 	
 	while(temp != NULL){
-		if(temp->graph_node->id_node == id_node){
-			return temp->graph_node;
+		if(temp->id_node == id_node){
+			return temp;
 		}
 		temp = temp->next;	
 	}
@@ -127,7 +122,7 @@ graph_node *find_graph_node(graph_list *graph,int id_node){
 }
 
 void print_graph(graph_list *graph){
-	list_graph_node *temp = NULL;
+	graph_node *temp = NULL;
 	
 	if(graph == NULL) return;
 	if(graph->head == NULL) return;
@@ -135,7 +130,7 @@ void print_graph(graph_list *graph){
 	temp = graph->head;
 	
 	while(temp != NULL){
-		printf("%i",temp->graph_node->id_node);
+		printf("%i",temp->id_node);
 		temp = temp->next;
 	}
 	printf("-open\n");
@@ -145,16 +140,7 @@ void dispose_graph_node(graph_node **node){
 	if(*node == NULL) return;
 	
 	if((*node)->neighbours != NULL) dispose_edges(&(*node)->neighbours);
-	
-	free(*node);
-	*node = NULL;
-}
-
-void dispose_list_graph_nodes(list_graph_node **node){
-	if(*node == NULL) return;
-	
-	if((*node)->graph_node != NULL) dispose_graph_node(&(*node)->graph_node);
-	if((*node)->next != NULL) dispose_list_graph_nodes(&(*node)->next);
+	if((*node)->next != NULL) dispose_graph_node(&(*node)->next);
 	
 	free(*node);
 	*node = NULL;
@@ -163,7 +149,7 @@ void dispose_list_graph_nodes(list_graph_node **node){
 void dispose_graph_list(graph_list **graph){
 	if(*graph == NULL) return;
 	
-	if((*graph)->head != NULL) dispose_list_graph_nodes(&(*graph)->head);
+	if((*graph)->head != NULL) dispose_graph_node(&(*graph)->head);
 	
 	free(*graph);
 	*graph = NULL;
