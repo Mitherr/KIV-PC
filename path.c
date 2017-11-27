@@ -140,6 +140,8 @@ path_list *create_paths_from_predecessors(predecessors *end_node,int id_node_end
 	int i = 0;
 	int error = 0;
 	
+	if(end_node == NULL) return NULL;
+	
 	if(end_node->predecessor == NULL) return NULL;
 	
 	temp = end_node->predecessor;

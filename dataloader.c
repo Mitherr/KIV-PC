@@ -22,7 +22,10 @@ graph_list *load_graph_from_file(char *file_name){
 	
 	fp = fopen(file_name,"r");
 	
-	if(fp == NULL) return NULL;
+	if(fp == NULL){
+		printf("File not found!\n");
+		return NULL;
+	}
 	
 	graph = create_graph_list();
 	if(graph == NULL){

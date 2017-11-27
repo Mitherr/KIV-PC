@@ -1,3 +1,11 @@
+/*
+    DFS
+
+    Module date.h
+    For detailed description see date.c
+
+*/
+
 #ifndef _DATE_H
 #define _DATE_H
 

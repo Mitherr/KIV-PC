@@ -1,8 +1,32 @@
+/*
+    DFS
+
+    Module date.c
+    This module contains a set of functions that assueres a maintance of dates used in a programme.
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
 #include "date.h"
+
+
+/* ____________________________________________________________________________
+
+   date *create_date(int year,int month,int day)
+    
+    Creates a new struct date that containst 3 integers:
+    -year
+    -month
+    -day
+    passed by arguments year,month,day
+    returns:
+    struct date if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
 
 date *create_date(int year,int month,int day){
 	date *temp = NULL;
@@ -19,6 +43,19 @@ date *create_date(int year,int month,int day){
 	
 	return temp;
 }
+
+/* ____________________________________________________________________________
+
+   date *create_date_from_str(char *date_s)
+    
+    Creates a new struct date from char pointer passed by an arguments date_s
+	argument should be in format("yyyy-mm-dd").
+
+    returns:
+    struct date if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
 
 date *create_date_from_str(char *date_s){
 	date *date_n = NULL;
@@ -84,6 +121,19 @@ date *create_date_from_str(char *date_s){
 	return date_n;
 }
 
+/* ____________________________________________________________________________
+
+  	int compare(date *d1,date *d2)
+    
+    Compares dates struct passed by arguments d1,d2
+
+    returns:
+    1 if d2 is older
+    0 if dates are equal
+    -1 if date 1 is older
+   ____________________________________________________________________________
+*/
+
 int compare(date *d1,date *d2){	
 	if(d1 == NULL || d2 == NULL) return 0;
 	
@@ -113,12 +163,27 @@ int compare(date *d1,date *d2){
 	
 }
 
+/* ____________________________________________________________________________
+
+  	int difference_days(date *oldest,date *newest)
+    
+    Returns difference of two dates in days. Function uses difftime from <time.h>
+
+    returns:
+    positive integer if d2 is older
+    0 if dates are equal
+    negative integer if date 2 is older
+   ____________________________________________________________________________
+*/
+
 int difference_days(date *oldest,date *newest){
 	int comp, days;
 	struct tm start_date = {0};
 	struct tm end_date = {0};
 	time_t start_time, end_time;
 	double seconds;
+	
+	if(oldest == NULL || newest == NULL) return;
 	
 	if(oldest == newest) return 0;
 	
@@ -150,6 +215,14 @@ int difference_days(date *oldest,date *newest){
 	return days;
 }
 
+/* ____________________________________________________________________________
+
+  	void print_date(date *d)
+    
+    Prints date passed by an argument d in format "yyyy-mm-dd";
+   ____________________________________________________________________________
+*/
+
 void print_date(date *d){
 	
 	if(d->month < 9 && d->day < 9){
@@ -165,6 +238,14 @@ void print_date(date *d){
 		printf("%i-%i-%i",d->year,d->month,d->day);	
 	}
 }
+
+/* ____________________________________________________________________________
+
+  	void dispose_date(date **d)
+    
+    Dispose memory occupied by a date passed by an argument d
+   ____________________________________________________________________________
+*/
 
 void dispose_date(date **d){
 	free(*d);

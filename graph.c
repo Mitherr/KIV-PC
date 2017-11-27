@@ -1,3 +1,11 @@
+/*
+    DFS
+
+    Module graph.h
+    For detailed description see date.c
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
@@ -8,8 +16,7 @@
    	graph_node *create_graph_node(int id_node)
     
     Creates node that represents one node of a graph wich contains it's id and
-    list of it's neighbours. Id is passe by argument 'id_node' and neigbours list
-    is NULL when node is created.
+    list of it's neighbours. Id is passe by argument 'id_node'.
    ____________________________________________________________________________
 */
 
@@ -31,26 +38,19 @@ graph_node *create_graph_node(int id_node){
 	
 	temp->id_node = id_node;
 	temp->neighbours = temp_e;
+	temp->next = NULL;
 	
 	return temp;	
 }
 
-list_graph_node *create_list_graph_node(graph_node *node){
-	list_graph_node * temp = NULL;
-	
-	if(node == NULL) return NULL;
+/* ____________________________________________________________________________
 
-	temp = (list_graph_node *) malloc(sizeof(list_graph_node));
-	if(temp == NULL){
-		printf("Out of memory (list_node)\n");
-		return NULL;
-	}
-	
-	temp->graph_node = node;
-	temp->next = NULL;	
-	
-	return temp;
-}
+   	list_graph_node *create_list_graph_node(graph_node *node)
+    
+    Creates node that represents one node of a graph wich contains it's id and
+    list of it's neighbours. Id is passe by argument 'id_node'.
+   ____________________________________________________________________________
+*/
 
 graph_list *create_graph_list(){
 	graph_list * temp = NULL;
@@ -66,19 +66,13 @@ graph_list *create_graph_list(){
 	return temp;
 }
 
-list_graph_node *append_node_list_end(graph_list *graph,graph_node *node){
-	list_graph_node *temp = NULL;
-	list_graph_node *new_temp = NULL;
+void *append_node_list_end(graph_list *graph,graph_node *node){
+	graph_node *temp = NULL;
 	
 	if(graph == NULL || node == NULL) return;
 	
-	new_temp = create_list_graph_node(node);
-	if(new_temp == NULL){
-		return NULL;
-	}
-	
 	if(graph->head == NULL){
-		graph->head = new_temp;
+		graph->head = node;
 		return graph->head;
 	}
 	

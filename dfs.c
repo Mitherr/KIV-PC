@@ -7,15 +7,16 @@
 #include "path.h"
 
 
-void dfs_rec(stack *open,predecessors_list *closed,int max_level){
-		
-	while(open->first != NULL){
+int dfs_rec(stack *open,predecessors_list *closed,int max_level){
 	stack_node *temp = NULL;
 	stack_node *new_temp = NULL;
 	predecessors *temp2 = NULL;
 	predecessor_node *temp3 = NULL;
 	edge_node *temp4 = NULL;
 	edges *temp5 = NULL;
+	int error = 0;
+		
+	while(open->first != NULL){
 	
 //	print_stack(open);
 //	print_predecessors_list(closed);
@@ -30,6 +31,11 @@ void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 		if( predeccesor_contains_id(temp->previous,temp->node->id_node) == 0){
 //		printf("adding predecesor %i to %i \n",temp->previous->id_node,temp->node->id_node);
 		temp3 = create_predecessor(temp->node->id_node,temp->d,temp->previous);
+		if(temp3 == NULL){
+			error = 1;
+			break;
+		}
+		
 		append_predecessor_predecessors(temp2,temp3);
 		
 		if(temp->node->neighbours != NULL && temp->level < max_level){
@@ -38,8 +44,16 @@ void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 				while(temp4 != NULL){
 //					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
 					new_temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
+					if(new_temp == NULL){
+						error = 1;
+						break;
+					}
+					
 					append_stack_node_to_stack(open,new_temp);
 					temp4 = temp4->next;
+				}
+				if(error == 1){
+					break;
 				}
 			}
 		}
@@ -48,7 +62,18 @@ void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 	}
 	else{
 		temp2 = create_predecessors(temp->node->id_node);
-		temp3 = create_predecessor(temp->node->id_node,temp->d,temp->previous); 
+		if(temp2 == NULL){
+			error = 1;
+			break;
+		}
+		
+		temp3 = create_predecessor(temp->node->id_node,temp->d,temp->previous);
+		if(temp3 == NULL){
+			dispose_predecessors(&temp2);
+			error = 1;
+			break;
+		}
+		 
 		append_predecessor_predecessors(temp2,temp3);
 		append_predecessors_predecessors_list(closed,temp2);
 	
@@ -58,13 +83,29 @@ void dfs_rec(stack *open,predecessors_list *closed,int max_level){
 				while(temp4 != NULL){
 //					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
 					new_temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
+					if(new_temp == NULL){
+						error = 1;
+						break;
+					}
+					
 					append_stack_node_to_stack(open,new_temp);
 					temp4 = temp4->next;
+				}
+				if(error == 1){
+					dispose_stack_node(&temp);
+					break;
 				}
 			}
 		}
 	}
 	dispose_stack_node(&temp);
+	}
+	
+	if(error == 1){
+		return -1;
+	}
+	else{
+		return 1;
 	}
 }
 
@@ -74,11 +115,11 @@ void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int m
 	predecessors_list *closed = NULL;
 	predecessors *first = NULL;
 	predecessor_node *first_node = NULL;
-	predecessor_node *lol = NULL;
 	path_list *paths = NULL;
 	graph_node *temp = NULL;
 	edges *temp2 = NULL;
 	edge_node *edge = NULL;
+	int error = 0;
 	
 	
 	if(graph == NULL) return;
@@ -92,30 +133,69 @@ void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int m
 	if(temp == NULL) return;
 	
 	open = create_stack();
+	if(open == NULL){
+		return;
+	}
+	
 	closed = create_predecessors_list();
+	if(closed == NULL){
+		dispose_stack(&open);
+		return;
+	}
 	
 	if(temp->neighbours == NULL){
+		dispose_stack(&open);
+		dispose_predecessors_list(&closed);
 		return;
 	}
 	
 	first = create_predecessors(id_node_start);
+	if(first == NULL){
+		dispose_stack(&open);
+		dispose_predecessors_list(&closed);
+		return;
+	}
+	
 	first_node = create_first_predecessor(id_node_start);
+	if(first_node == NULL){
+		dispose_stack(&open);
+		dispose_predecessors_list(&closed);
+		return;
+	}
+	
 	append_predecessor_predecessors(first,first_node);
 	append_predecessors_predecessors_list(closed,first);
 	
+	if(temp->neighbours->head != NULL){
 	edge = temp->neighbours->head;
+	}
 	
 	while(edge != NULL){
 		new_node = create_stack_node(edge->graph_node,edge->date,first_node,1);
+		if(new_node == NULL){
+			dispose_stack(&open);
+			dispose_predecessors_list(&closed);
+			return;
+		}
+		
 		append_stack_node_to_stack(open,new_node);
 		edge = edge->next;	
 	}
 	
-	dfs_rec(open,closed,max_level);
+	error = dfs_rec(open,closed,max_level);
+	if(error == -1){
+		printf("There was an error during path searching\n");
+		dispose_predecessors_list(&closed);
+		dispose_stack(&open);
+		return;
+	}
 	
 	first = find_predecessors_in_list(closed,id_node_end);
 	
 	paths = create_paths_from_predecessors(first,id_node_end);
+	if(paths == NULL){
+		printf("No paths found\n");
+	}
 	print_paths_list(paths);
 	
 	dispose_path_list(&paths);
