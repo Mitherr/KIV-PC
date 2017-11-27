@@ -34,7 +34,6 @@ typedef struct list{
 graph_node *create_graph_node(int id_node);
 graph_list *create_graph_list();
 void *append_node_list_end(graph_list *graph,graph_node *node);
-graph_node *pop_node_graph_list(graph_list *graph);
 graph_node *find_graph_node(graph_list *graph,int id_node);
 void print_graph(graph_list *list);
 void dispose_graph_node(graph_node **node);

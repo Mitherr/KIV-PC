@@ -2,7 +2,8 @@
     DFS
 
     Module graph.h
-    For detailed description see date.c
+    This module creates list of graph_node wich represents nodes in graph we want to search in.
+    And also contains all functions to work with the list and dispose it.
 
 */
 
@@ -17,6 +18,10 @@
     
     Creates node that represents one node of a graph wich contains it's id and
     list of it's neighbours. Id is passe by argument 'id_node'.
+    
+    returns:
+    graph_node if succeed
+    NULL if fails
    ____________________________________________________________________________
 */
 
@@ -45,10 +50,13 @@ graph_node *create_graph_node(int id_node){
 
 /* ____________________________________________________________________________
 
-   	list_graph_node *create_list_graph_node(graph_node *node)
+   	graph_list *create_graph_list()
     
-    Creates node that represents one node of a graph wich contains it's id and
-    list of it's neighbours. Id is passe by argument 'id_node'.
+    Creates list that represents all nodes in graph with its neighbours (graph structure);
+    
+    returns:
+    graph_list if succeed
+    NULL if fails
    ____________________________________________________________________________
 */
 
@@ -65,6 +73,14 @@ graph_list *create_graph_list(){
 	
 	return temp;
 }
+
+/* ____________________________________________________________________________
+
+   	void *append_node_list_end(graph_list *graph,graph_node *node)
+    
+    appends graph_node passed by and argume node to the end of a list passed by an argument graph.
+   ____________________________________________________________________________
+*/
 
 void *append_node_list_end(graph_list *graph,graph_node *node){
 	graph_node *temp = NULL;
@@ -86,23 +102,17 @@ void *append_node_list_end(graph_list *graph,graph_node *node){
 
 }
 
-graph_node *pop_node_graph_list(graph_list *graph){
-	graph_node *temp = NULL;
-	
-	if(graph == NULL) return NULL;
-	
-	if(graph->head == NULL) return NULL;
-	 
-	 temp = graph->head;
-	 
-	 if(graph->head->next != NULL){
-	 	graph->head = graph->head->next;
-	 	return temp;
-	 }
-	 
-	graph->head = NULL;
-	return temp;	
-}
+/* ____________________________________________________________________________
+
+   	graph_node *find_graph_node(graph_list *graph,int id_node)
+    
+    search in a list passed by an argument graph and if it find node with id passed by an argument id_node returns its pointer.
+    
+    returns:
+    graphnode if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
 
 graph_node *find_graph_node(graph_list *graph,int id_node){
 	graph_node *temp = NULL;
@@ -121,6 +131,15 @@ graph_node *find_graph_node(graph_list *graph,int id_node){
 	return NULL;
 }
 
+/* ____________________________________________________________________________
+
+  	 void print_graph(graph_list *graph)
+    
+    Prints id of all nodes contained in a list passed by an argument graph. (debug reasons only)
+   ____________________________________________________________________________
+*/
+
+
 void print_graph(graph_list *graph){
 	graph_node *temp = NULL;
 	
@@ -136,6 +155,14 @@ void print_graph(graph_list *graph){
 	printf("-open\n");
 }
 
+/* ____________________________________________________________________________
+
+  	void dispose_graph_node(graph_node **node)
+    
+    Dispose memory occupied by a node her neighbours in graph and in list recursively.
+   ____________________________________________________________________________
+*/
+
 void dispose_graph_node(graph_node **node){
 	if(*node == NULL) return;
 	
@@ -145,6 +172,14 @@ void dispose_graph_node(graph_node **node){
 	free(*node);
 	*node = NULL;
 }
+
+/* ____________________________________________________________________________
+
+  	void dispose_graph_list(graph_list **graph)
+    
+    Dispose memory occupied by a list passed by an argument graph.
+   ____________________________________________________________________________
+*/
 
 void dispose_graph_list(graph_list **graph){
 	if(*graph == NULL) return;

@@ -1,3 +1,11 @@
+/*
+    DFS
+
+    Module predecessor.h
+    For detailed description see neighbours.h
+
+*/
+
 #ifndef _PREVIOUS_H
 #define _PREVIOUS_H
 

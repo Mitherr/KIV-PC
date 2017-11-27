@@ -1,8 +1,30 @@
+/*
+    DFS
+
+    Module neighbours.c
+    This module creates list of edge_nodes wich represents edges in graph we want to search in.
+    And also contains all functions to work with the list and dispose it.
+    
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "neighbours.h"
 #include "graph.h"
 #include "date.h"
+
+/* ____________________________________________________________________________
+
+   	edge_node *create_edge_node(graph_node *node,char *date_s)
+    
+    Creates node that represents one edge of a graph wich contains.
+    Pointer of a graph_node on the end of an edge and its weight (date).
+    
+    returns:
+    graph_node if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
 
 edge_node *create_edge_node(graph_node *node,char *date_s){
 	edge_node *temp = NULL;
@@ -29,6 +51,18 @@ edge_node *create_edge_node(graph_node *node,char *date_s){
 	return temp;
 }
 
+/* ____________________________________________________________________________
+
+   	edges *create_edges()
+    
+    Creates list that represents edges of a node in graph;
+    
+    returns:
+    edges if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
+
 edges *create_edges(){
 	edges *temp = NULL;
 	
@@ -42,6 +76,14 @@ edges *create_edges(){
 	
 	return temp;
 }
+
+/* ____________________________________________________________________________
+
+   	void *append_edge_edges(edges *edges_l,edge_node *edg_n)
+    
+    Append edge_node to an existing edges_list
+   ____________________________________________________________________________
+*/
 
 void *append_edge_edges(edges *edges_l,edge_node *edg_n){
 	edge_node *temp = NULL;
@@ -62,29 +104,13 @@ void *append_edge_edges(edges *edges_l,edge_node *edg_n){
 	temp->next = edg_n;
 }
 
-edge_node *pop_edge_edges(edges *edges_l){
-	edge_node *temp = NULL;
-	
-	if(edges_l == NULL) return;
-	
-	temp = edges_l->head;
-	
-	if(edges_l->head != NULL){
-		edges_l->head = temp->next;
-		return temp;
-	}
-	
-	return NULL;
-}
+/* ____________________________________________________________________________
 
-void dispose_single_edge(edge_node **edge_n){
-	if(*edge_n == NULL) return;
-	
-	if((*edge_n)->date != NULL) dispose_date(&(*edge_n)->date);
-	
-	free(*edge_n);
-	*edge_n = NULL;
-}
+  	void dispose_edge(edge_node **edge_n)
+    
+    Dispose memory occupied by an edge in graph.
+   ____________________________________________________________________________
+*/
 
 void dispose_edge(edge_node **edge_n){
 	if(*edge_n == NULL) return;
@@ -95,6 +121,14 @@ void dispose_edge(edge_node **edge_n){
 	free(*edge_n);
 	*edge_n = NULL;
 }
+
+/* ____________________________________________________________________________
+
+  	void dispose_edges(edges **edges_l)
+    
+    Dispose memory occupied by a list of edges passed by an argument edges_l.
+   ____________________________________________________________________________
+*/
 
 void dispose_edges(edges **edges_l){
 	if(*edges_l == NULL) return;
