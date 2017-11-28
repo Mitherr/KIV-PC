@@ -1,3 +1,11 @@
+/*
+    DFS
+
+    Module search.c
+    This module composes all the parts of the search together.
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
@@ -5,9 +13,10 @@
 #include "neighbours.h"
 #include "stack.h"
 #include "path.h"
+#include "search.h"
 
 
-int dfs_rec(stack *open,predecessors_list *closed,int max_level){
+int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 	stack_node *temp = NULL;
 	stack_node *new_temp = NULL;
 	predecessors *temp2 = NULL;
@@ -182,7 +191,7 @@ void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int m
 		edge = edge->next;	
 	}
 	
-	error = dfs_rec(open,closed,max_level);
+	error = dfs_alg(open,closed,max_level);
 	if(error == -1){
 		printf("There was an error during path searching\n");
 		dispose_predecessors_list(&closed);

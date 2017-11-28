@@ -159,7 +159,7 @@ void print_graph(graph_list *graph){
 
   	void dispose_graph_node(graph_node **node)
     
-    Dispose memory occupied by a node her neighbours in graph and in list recursively.
+    Dispose memory occupied by a node and her neighbours in graph and in list recursively.
    ____________________________________________________________________________
 */
 

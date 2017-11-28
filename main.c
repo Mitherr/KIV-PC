@@ -12,6 +12,7 @@
 #include "date.h"
 #include "predecessor.h"
 #include "dataloader.h"
+#include "search.h"
 
 /* ____________________________________________________________________________
 

@@ -141,7 +141,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=dfs.h
+FileName=search.h
 CompileCpp=0
 Folder=
 Compile=1
@@ -151,7 +151,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit11]
-FileName=dfs.c
+FileName=search.c
 CompileCpp=0
 Folder=
 Compile=1
