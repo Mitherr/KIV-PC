@@ -225,6 +225,8 @@ int difference_days(date *oldest,date *newest){
 
 void print_date(date *d){
 	
+	if(d == NULL) return;
+	
 	if(d->month < 9 && d->day < 9){
 		printf("%i-0%i-0%i",d->year,d->month,d->day);
 	}

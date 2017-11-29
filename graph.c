@@ -139,7 +139,6 @@ graph_node *find_graph_node(graph_list *graph,int id_node){
    ____________________________________________________________________________
 */
 
-
 void print_graph(graph_list *graph){
 	graph_node *temp = NULL;
 	

@@ -1,6 +1,27 @@
+/*
+    DFS
+
+    Module path.c
+    For detailed description see path.c
+
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "path.h"
+
+/* ____________________________________________________________________________
+
+   	path_node *create_path_node(int id_path,date *d)
+    
+    
+    Creates a path_node. path_node contains id of a node and weight of and edge that added this node.
+    
+    returns:
+    path_node if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
 
 path_node *create_path_node(int id_path,date *d){
 	path_node *temp = NULL;
@@ -18,6 +39,18 @@ path_node *create_path_node(int id_path,date *d){
 	return temp;
 }
 
+/* ____________________________________________________________________________
+
+   	path_node *create_last_path_node(int id_path)
+    
+    Creates a path_node. path_node contains id of a node but has no date becouse it's node we started our search from.
+    
+    returns:
+    path_node if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
+
 path_node *create_last_path_node(int id_path){
 	path_node *temp = NULL;
 	
@@ -33,6 +66,19 @@ path_node *create_last_path_node(int id_path){
 	
 	return temp;
 }
+
+/* ____________________________________________________________________________
+
+    path *create_path()
+    
+    Creates a path. Path contains her length,two dates we used for counting her weight, weight, and pointer on a path_node list.
+    When new path is created all pointer are set on NULL, weight is set on 0 and length on -1.
+    
+    returns:
+    path if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
 
 path *create_path(){
 	path *temp = NULL;
@@ -53,6 +99,18 @@ path *create_path(){
 	return temp;
 }
 
+/* ____________________________________________________________________________
+
+    path_list *create_path_list()
+    
+    Creates a sorted list of all paths. List is empty when created.
+    
+    returns:
+    path_list if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
+
 path_list *create_path_list(){
 	path_list *temp = NULL;
 	
@@ -66,6 +124,16 @@ path_list *create_path_list(){
 	
 	return temp;
 }
+
+/* ____________________________________________________________________________
+
+    void append_path_node_to_path(path *p,path_node *node)
+    
+    Appends path_node node to a certain path p. If path is empty sets her dates to date of a node.
+    Else dates of node are compared to path's dates and are replaced if necessery.
+    Appending node also  increments path's lenght.
+   ____________________________________________________________________________
+*/
 
 void append_path_node_to_path(path *p,path_node *node){
 	if(p == NULL || node == NULL) return;
@@ -91,6 +159,29 @@ void append_path_node_to_path(path *p,path_node *node){
 	p->first = node;
 	p->length += 1;		
 }
+
+/* ____________________________________________________________________________
+
+    void calculate_difference(path *p)
+    
+    Sets path's weight that is calculated from her oldest and newest date.
+   ____________________________________________________________________________
+*/
+
+void calculate_difference(path *p){
+	if(p == NULL) return;
+	
+	p->difference_in_days = difference_days(p->oldest,p->newest);
+}
+
+/* ____________________________________________________________________________
+
+    void append_paths_to_path_list(path_list *paths,path *p)
+    
+    Appends path to a list of paths. Path is appended on a place by her length and weight.
+    Before path is appended her weight is calculated from her final dates.
+   ____________________________________________________________________________
+*/
 
 void append_paths_to_path_list(path_list *paths,path *p){
 	path *temp = NULL;
@@ -122,13 +213,6 @@ void append_paths_to_path_list(path_list *paths,path *p){
 	}
 	temp->next = p;
 }
-
-void calculate_difference(path *p){
-	if(p == NULL) return;
-	
-	p->difference_in_days = difference_days(p->oldest,p->newest);
-}
-
 
 path_list *create_paths_from_predecessors(predecessors *end_node,int id_node_end){
 	predecessor_node *temp = NULL;

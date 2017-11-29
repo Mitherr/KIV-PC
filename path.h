@@ -1,3 +1,11 @@
+/*
+    DFS
+
+    Module path.h
+    For detailed description see path.h
+
+*/
+
 #ifndef _PATH_H
 #define _PATH_H
 

@@ -1,3 +1,11 @@
+/*
+    DFS
+
+    Module stack.h
+    For detailed description see stack.c
+
+*/
+
 #ifndef _STACK_H
 #define _STACK_H
 
