@@ -15,6 +15,15 @@
 #include "path.h"
 #include "search.h"
 
+/* ____________________________________________________________________________
+
+  	int dfs_alg(stack *open,predecessors_list *closed,int max_level)
+    
+    Pops node from stack search all her neighbours. Appends to the stack the ones wich are not already contained in nodes predecessors or their level is lower than max_level.
+    Id of node is added to the predecessors_list with predecessor of the node. All of this is running in cycle until our stack is empty.
+   ____________________________________________________________________________
+*/
+
 
 int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 	stack_node *temp = NULL;
@@ -37,7 +46,7 @@ int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 	temp2 = find_predecessors_in_list(closed,temp->node->id_node);
 	
 	if(temp2 != NULL ){
-		if( predeccesor_contains_id(temp->previous,temp->node->id_node) == 0){
+		if(predeccesor_contains_id(temp->previous,temp->node->id_node) == 0){
 //		printf("adding predecesor %i to %i \n",temp->previous->id_node,temp->node->id_node);
 		temp3 = create_predecessor(temp->node->id_node,temp->d,temp->previous);
 		if(temp3 == NULL){
@@ -117,6 +126,16 @@ int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 		return 1;
 	}
 }
+
+/* ____________________________________________________________________________
+
+  	void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int max_level)
+    
+    This method prepares date for DFS search. Finds start_node and end_node if they exit. Then creates stack and list of predecessors needed for dfs(search).
+    Gets start node from graph and appends to the stack all her neighbours. Also creates first predecessor.
+    Than calls function dfs_alg with prepared stack and predecessors_list) 
+   ____________________________________________________________________________
+*/
 
 void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int max_level){
 	stack *open = NULL;
@@ -201,7 +220,7 @@ void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int m
 	
 	first = find_predecessors_in_list(closed,id_node_end);
 	
-	paths = create_paths_from_predecessors(first,id_node_end);
+	paths = create_paths_from_predecessors(first);
 	if(paths == NULL){
 		printf("No paths found\n");
 	}

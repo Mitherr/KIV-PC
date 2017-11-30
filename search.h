@@ -1,7 +1,7 @@
 /*
     DFS
 
-    Module dfs.h
+    Module search.h
     For detailed description see search.c
 
 */

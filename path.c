@@ -2,7 +2,8 @@
     DFS
 
     Module path.c
-    For detailed description see path.c
+    This module creates list of pahts wich final paths found in graph.
+    And also contains all functions to work with the list and dispose it.
 
 */
 
@@ -46,6 +47,7 @@ path_node *create_path_node(int id_path,date *d){
     Creates a path_node. path_node contains id of a node but has no date becouse it's node we started our search from.
     
     returns:
+    
     path_node if succeed
     NULL if fails
    ____________________________________________________________________________
@@ -165,11 +167,16 @@ void append_path_node_to_path(path *p,path_node *node){
     void calculate_difference(path *p)
     
     Sets path's weight that is calculated from her oldest and newest date.
+    If path has length 1 weight stays on default value 0.
    ____________________________________________________________________________
 */
 
 void calculate_difference(path *p){
 	if(p == NULL) return;
+	
+	if(p->length == 1){
+		return;
+	}
 	
 	p->difference_in_days = difference_days(p->oldest,p->newest);
 }
@@ -214,7 +221,20 @@ void append_paths_to_path_list(path_list *paths,path *p){
 	temp->next = p;
 }
 
-path_list *create_paths_from_predecessors(predecessors *end_node,int id_node_end){
+/* ____________________________________________________________________________
+
+    path_list *create_paths_from_predecessors(predecessors *end_node)
+    
+	Creates all paths from predecessors(wich is basicly one node in a graph containg pointer to all her predecessors).
+	All paths are appended to a path_list.
+	
+	returns:
+	path_list if succeed
+	NULL if fails
+   ____________________________________________________________________________
+*/
+
+path_list *create_paths_from_predecessors(predecessors *end_node){
 	predecessor_node *temp = NULL;
 	predecessor_node *temp2 = NULL;
 	predecessor_node *prev = NULL;
@@ -281,6 +301,21 @@ path_list *create_paths_from_predecessors(predecessors *end_node,int id_node_end
 	return paths;
 }
 
+/* ____________________________________________________________________________
+
+  	void print_graph(graph_list *graph)
+    
+    Prints path in format (i-i-....-i;dn,do;w)
+    if path has length 1 prints only(i-i;d;0)
+    
+    i - id_node in graph
+    dn - date newest
+    do - date oldest
+    w - weight
+    
+   ____________________________________________________________________________
+*/
+
 void print_path(path *p){
 	path_node *temp = NULL;
 	
@@ -310,6 +345,14 @@ void print_path(path *p){
 	
 }
 
+/* ____________________________________________________________________________
+
+  	void print_graph(graph_list *graph)
+
+	Print paths in sorted path_list using function print_path
+   ____________________________________________________________________________
+*/
+
 void print_paths_list(path_list *paths){
 	path *temp = NULL;
 	
@@ -324,6 +367,14 @@ void print_paths_list(path_list *paths){
 	}
 }
 
+/* ____________________________________________________________________________
+
+  	void dispose_path_node(path_node **node)
+    
+    Dispose memory occupied by a node and her neighbours in list recursively.
+   ____________________________________________________________________________
+*/
+
 void dispose_path_node(path_node **node){
 	if(*node == NULL) return;
 	
@@ -332,6 +383,14 @@ void dispose_path_node(path_node **node){
 	free(*node);
 	*node = NULL;
 }
+
+/* ____________________________________________________________________________
+
+  	void dispose_path(path **p)
+    
+    Dispose memory occupied by a path and her neighbours in list recursively.
+   ____________________________________________________________________________
+*/
 
 void dispose_path(path **p){
 	if(*p == NULL) return;
@@ -342,6 +401,14 @@ void dispose_path(path **p){
 	free(*p);
 	*p = NULL;
 }
+
+/* ____________________________________________________________________________
+
+  	void dispose_path(path **p)
+    
+    Dispose memory occupied by a path_list and all nodes in the list recursively.
+   ____________________________________________________________________________
+*/
 
 void dispose_path_list(path_list **paths){
 	if(*paths == NULL) return;

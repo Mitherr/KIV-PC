@@ -1,3 +1,11 @@
+/*
+    DFS
+
+    Module dataloader.h
+    For detailed description see dataloader.c
+
+*/
+
 #ifndef _DATALOADER_H
 #define _DATALOADER_H
 
@@ -9,7 +17,8 @@
    ____________________________________________________________________________
 */
 
-#define MAX_NUMBER_OF_CHARS_ON_LINE 34
+#define MAX_NUMBER_OF_CHARS_ON_LINE 36
+#define DELIM ";"
 
 /* ____________________________________________________________________________
 

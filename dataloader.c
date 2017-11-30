@@ -1,13 +1,33 @@
+/*
+    DFS
+
+    Module dataloader.c
+    This module creates our graph by loading and parsing datas from file.
+
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include "dataloader.h"
 #include "graph.h"
 #include "neighbours.h"
 
+/* ____________________________________________________________________________
+
+   	graph_list *load_graph_from_file(char *file_name)
+    
+    Creates a graph by loading and parsing data from file. Name of file is passed by an argument file_name;
+    MAX_NUMBER_OF_CHARS_ON_LINE is 36 (2x(integer)(22 chars),yyyy-mm-dd(10 chars),2x(;) (2chars), newline(2chars) format)
+    
+    returns:
+    graph_list if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
+
 graph_list *load_graph_from_file(char *file_name){
 	FILE *fp;
 	char str[MAX_NUMBER_OF_CHARS_ON_LINE];
-	const char delim[2] = ";";
 	char *token;
 	graph_list *graph;
 	graph_node *temp1;
@@ -34,7 +54,7 @@ graph_list *load_graph_from_file(char *file_name){
 	
 	while(fgets (str, MAX_NUMBER_OF_CHARS_ON_LINE, fp) != NULL){
 		
-		token = strtok(str, delim);
+		token = strtok(str, DELIM);
 		if(token == NULL){
 			error = 1;
 			break;
@@ -63,7 +83,7 @@ graph_list *load_graph_from_file(char *file_name){
 			break;
 		}
 		
-   		token = strtok(NULL, delim);
+   		token = strtok(NULL, DELIM);
    		if(token == NULL){
 			error = 1;
 			break;
@@ -91,7 +111,7 @@ graph_list *load_graph_from_file(char *file_name){
 			break;
 		}
    		
-   		token = strtok(NULL, delim);
+   		token = strtok(NULL, DELIM);
    		if(token == NULL){
 			error = 1;
 			break;
