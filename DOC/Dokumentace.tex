@@ -1,0 +1,106 @@
+% ==========================================================================
+% ======================== Dokumentace k PC 1.0 ;-) ========================
+% ==========================================================================
+
+% Ověřeno, prošlo bez jediné připomínky - při dodržení následujících pokynů:
+% - SPRÁVNĚ vyplnit titulní stranu (!!!)
+% - Nadpisy používat v pořadí (zanoření):
+% 		- chapter (celá kapitola)
+%		- section
+% 		- subsection, subsubsection ... 
+% - Pro pomlčky V TEXTU používat -- (doslova 2 mínusy). Neplatí pro rozsahy
+%	(0-9), spojovníky typu xxx-li apod.
+% - Uvozovky - používat české \uv{hezké uvozovky}.
+% - Zvýrazňovat \textit{kurzívou}.
+% - Názvy modulů, funkcí psát \texttt{neproporcionálním fontem}.
+% - URL psát do \url{}
+% - In-line matematické výrazy přímo do řádky $uzavřené do dolarů$, složitější
+%	na samostatnou řádku $$do dvojitých$$.
+% - Pokud např. v zadání zmiňujete LATEX a TEX, použít \latex resp. \tex.
+
+% - Pozor na předložky a spojky - nesmí se vyskytovat na konci řádku => použít
+%	nedělitelnou mezeru (~).
+% - Nové odstavce dvojitým odřádkováním.
+
+% OBRÁZKY	- Vektorově (!!!) - Illustrator, free Inkscape.
+% 			- Rastrově vkládat jen screeny obrazovky.
+%			- V textu pak odkazovat pomocí \ref{img1}.
+%			- Pro úpravu velikosti změnit scale.
+% 	\begin{figure}[h]
+%		\centering
+%		\includegraphics[scale=1.0]{soubor.pdf/png}
+%		\caption{Popisek}
+%		\label{img1}
+%	\end{figure}
+
+% PŘELOŽENÍ
+% - Nainstalovat doporučený MiKTeX.
+% - "pdflatex <nazev-souboru>.tex"
+% - Pro správné vygenerování odkazů, obsahu nutné vždy spustit 2x (!!!)
+% - Pro zjednodušení stačí spouštět přibalený bat, který to udělá sám ;)
+
+% ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+% ^^^^^^^^^^^^^^^^^ !!!!!!!!!SMAZAT PŘI ODEVZDÁNÍ!!!!!!!!! ^^^^^^^^^^^^^^^^^
+% ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+\documentclass[
+12pt,
+a4paper,
+pdftex,
+czech,
+titlepage
+]{report}
+
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{textcomp}
+\usepackage[T1]{fontenc}
+\usepackage{amsfonts}
+\usepackage{titlesec}
+\usepackage{graphicx}
+
+\titleformat{\chapter}
+  {\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
+\titlespacing*{\chapter}{0pt}{0ex plus 1ex minus .2ex}{2.0ex plus .2ex}
+
+\begin{document}
+
+\begin{titlepage}
+	\vspace*{-2cm}
+	{\centering\includegraphics[scale=1.0]{logo.pdf}\par}
+	\centering
+	\vspace*{2cm}
+	{\Large Semestrální práce z KIV/PC\par}
+	\vspace{1.5cm}
+	{\Huge\bfseries Vyhledávání cest v grafu technikou DFS\par}
+	\vspace{2cm}
+
+	{\Large Petr Hlaváč\par}
+	{\Large A15B0037P\par}
+	{\Large petrh@students.zcu.cz\par}
+
+	\vfill
+
+	{\Large 1.\,12.\,2017}
+\end{titlepage}
+
+\tableofcontents
+\thispagestyle{empty}
+\clearpage
+
+\chapter{Zadání}
+Naprogramujte v ANSI C přenositelnou$^{1}$ \textbf{konzolovou aplikaci}, která bude \textbf{procházet graf technikou DFS} (Depth--First--Search). Vstupem aplikace bude soubor s popisem grafu. Výstupem je pak odpovídající výčet všech cest mezi požadovanými uzly.
+
+
+\setcounter{page}{1}
+
+\chapter{Analýza úlohy}
+
+\chapter{Implementace}
+
+\chapter{Uživatelská příručka}
+
+\chapter{Závěr}
+
+\end{document}
