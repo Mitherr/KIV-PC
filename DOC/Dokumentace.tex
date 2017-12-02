@@ -59,10 +59,12 @@ titlepage
 \usepackage{amsfonts}
 \usepackage{titlesec}
 \usepackage{graphicx}
+\usepackage{hyperref}
 
 \titleformat{\chapter}
   {\normalfont\LARGE\bfseries}{\thechapter}{1em}{}
 \titlespacing*{\chapter}{0pt}{0ex plus 1ex minus .2ex}{2.0ex plus .2ex}
+\setlength\parindent{0pt}
 
 \begin{document}
 
@@ -90,8 +92,80 @@ titlepage
 \clearpage
 
 \chapter{Zadání}
-Naprogramujte v ANSI C přenositelnou$^{1}$ \textbf{konzolovou aplikaci}, která bude \textbf{procházet graf technikou DFS} (Depth--First--Search). Vstupem aplikace bude soubor s popisem grafu. Výstupem je pak odpovídající výčet všech cest mezi požadovanými uzly.
+Naprogramujte v ANSI C přenositelnou \textbf{konzolovou aplikaci}, která bude \textbf{procházet graf technikou DFS} (Depth--First--Search). Vstupem aplikace bude soubor s popisem grafu. Výstupem je pak odpovídající výčet všech cest mezi požadovanými uzly.
 
+\medskip
+Program se bude spouštět příkazem \textbf{dfs.exe} <soubor-grafu> <id1> <id2> <maxD>
+\begin{itemize}
+\item Symbol <soubor-grafu> zastupuje parametr - název vstupního souboru se strukturou grafu.
+\item Následují identifikátory (dále jen id) dvou uzlů v grafu <id1> a <id2>, mezi kterými bude spouštěn proces hledání cest.
+\item <maxD> je parametr popisující maximální délku cest, které mají být nalezeny.
+\end{itemize}
+
+Vámi vyvinutý program tedy bude vykonávat následující činnosti.
+\begin{enumerate}
+\item Při spuštění bez potřebných parametrů vypíše nápovědu pro jeho správné spuštění a ukončí se.
+\item Při spouštění s parametry načtě zadaný vstupní soubor do vhodné struktury reprezentující graf a mezi zadanými uzly najde všechny cesty, jejichž délka nepřekročí konstatnu nastavenou vstupním parametrem.
+\end{enumerate}
+
+Váš program může být během testování spuštěn například takto:
+
+\medskip
+\framebox[1.1\width]{dfs.exe graph.csv 1 2 4} \par
+
+\medskip
+Při tomto spuštění program vyhledá všechny cesty délky 1 až 4 mezi uzly 1 a 2.
+
+\medskip
+Hotovou práci odevzdejte v jediném archivu typu ZIP prostřednictvím automatického odevzdávacího a validačního systému. Postupujte podle instrukcí uvedených na webu předmětu. Archiv nechť obsahuje všechny zdrojové soubory potřebné k přeložení programu, \textbf{makefile} pro Windows i Linux a dokumentaci ve formátu PDF vytvořenou v typografickém systému \TeX, resp. \LaTeX.
+
+\section{Popis činnosti programu}
+Program načte vstup ve formátu CSV, který vhodným zbůsobem uloží do paměti pro pozdější prohledávání. Následně spustí algoritmus, jehož výstupem bude seznam všech cest mezi dvěma uzly, které bude vypisovat na standardní výstup ve formátu popsaném dále.
+
+\subsection{Specifikace výstupu programu}
+Program bude na standardní výstup vypisovat jednotlivé cesty. Vždy na jeden řádek právě jednu cestu. Cesty budou popsány posloupností id jenotlivých uzlů oddělených pomlčkou (tj. znakem minus,  \uv{\textbf{-}}). následovat bude středník a popisky jednotlicých hran v grafu oddělené čárkou. Za posledním středníkem bude uvedena hodnota sekundární metriky - relevance cesty, podle které budou cesty seřazeny (viz Řazení výstupu).
+
+\medskip
+Například tedy pro hledání cest mezi uzly A a B:
+
+\bigskip
+\textbf{A-B};$h_{1}$;$m_{1}$
+
+\textbf{A-F-B};$h_{2}$,$h_{3}$;$m_{2,3}$
+
+\textbf{A-W-B};$h_{4}$,$h_{5}$;$m_{4,5}$
+
+\textbf{A-F-O-B};$h_{2}$,$h_{6}$,$h_{7}$;$m_{2,6,7}$
+
+\bigskip
+Kde A, B, F, W, F, ... jsou popisky uzlů grafu, $h_{n}$ jsou ohodnocení hran a $m_{c1,c2...cn}$ je hodnota metrika relevance nalezené cesty.
+
+\subsection{Řazení výstupu}
+Cesty budou na standardním výstupu seřazeny podle jejich délky. Pokud bude nalezeno více cest stejné dálky, budou seřezeny podle jejich relevance následujícím způsobem. Popisky grafu nesou informaci o kalendářním datu ve formátu YYYY--MM--DD. Každá cesta budde tedy ohodnocena celým číslem, které bude odpovídat rozdílu v počtu dní mezi nejstarším a nejnovějším datem, následně budou podle toho čísla cesty se shodnou délkou seřazeny vzestupně.
+
+\medskip
+Pokud tedy nalezete cestu, kterou budou tvořit tyto 4 hrany s hodnotami:
+
+\bigskip
+2000-01-15,
+
+
+2000-01-04,
+
+
+2000-01-19,
+
+
+2000-01-24,
+
+\bigskip
+vypočte se hodnota metriky jako počet dnů mezi daty 2000-01-04 a 2000-01-24, což je 20.
+
+\section{Podrobné zadání}
+Originální nezkrácené zadání je možné nalézt na adrese:
+
+\medskip
+\url{http://www.kiv.zcu.cz/studies/predmety/pc/doc/work/sw2017-02.pdf}
 
 \setcounter{page}{1}
 

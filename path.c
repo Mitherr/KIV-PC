@@ -328,19 +328,25 @@ void print_path(path *p){
 		return;
 	}
 	
-	temp = p->first->next;
-	
 	printf("%i",p->first->id_path_node);
+	
+	temp = p->first->next;
 	
 	while(temp != NULL){
 		printf("-%i",temp->id_path_node);
 		temp = temp->next;
 	}
 	
-	printf(";");
-	print_date(p->newest);
-	printf(",");
-	print_date(p->oldest);
+	print_date(p->first->path_date);
+	
+	temp = p->first->next;
+	
+	while(temp != NULL){
+		printf(",");
+		print_date(temp->path_date);
+		temp = temp->next;
+	}
+	
 	printf(";%i\n",p->difference_in_days);
 	
 }
