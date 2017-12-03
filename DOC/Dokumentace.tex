@@ -157,6 +157,7 @@ http://www.kiv.zcu.cz/studies/predmety/pc/doc/work/sw2017-02.pdf
 	\item Načtení vstupních dat.
 	\item Vybrání vhodné datové struktury.
 	\item Modifikace algoritmu DFS pro hledání všech cest mezi dvěma body.
+	\item Vypisování výsledných cest.
 \end{enumerate}
 
 \section{Načtení vstupních dat}
@@ -239,11 +240,56 @@ Neorientované hrany jsou vyřešené přidáním stejné hrany k obou vrcholům
 
 Vrcholy grafu je možné mít uložené v poli nebo spojovém seznamu. Výhoda pole je přístup k hraném v $O(1)$. Nevýhodou je pamětová náročnost v případě nevyužítí všech indexů pole. Spojový seznam má přístup k vrcholům v $O(n)$, což může program značně zpomalovat v případě velkého počtu vrcholů v grafu. Vhodná volba tedy záleží hlavně na znalosti vstupních dat.
 
-\subsection{Modifikace algoritmu DFS}
-Vyjdeme ze základního algoritmu DFS. Budeme potřebovat zásobník a jeden seznam. Ze zadání víme, že naše prohledávání bude omezeno hloubkou. Dále bylo také řečeno, že se jedná o cestu 
+\section{Modifikace algoritmu DFS}
+Vyjdeme ze základního algoritmu DFS neboť nám byl pevně stanovem zadáním úlohy.
 
+\subsection{Ukončovací podmínky}
+ Ze zadání víme, že naše prohledávání bude omezeno hloubkou. Dále bylo také řečeno, že se jedná o cestu. Cesta v grafu je definová jako posloupnost vrcholů ve které není žádný vrchol obsažen dvakrát. Známe tedy dvě hlavní podmínky pro ukončení prohledávání do hloubky. První je maximální hloubka, kterou dostaneme zadanou při spuštění programu a druhá je v případě, že aktuální hledaná cesta již obsahuje daný vrchol.
+ 
+ \subsection{Ukládání cest}
+  Nyní již máme vhodný způsob jak v daném grafu cesty hledat. Bylo by ale také vhodné si je někam ukládat. Budeme si proto při každém nalezení vrcholu ukládat předchůdce, nebo-li vrchol ze kterého sme se do nově nalezeného vrcholu dostali. Vznikne nám tedy u každého vrcholu seznam předchůdců. Pokud půjdeme po jednotlivých předchůdcích dostaneme cestu z danného vrcholu do vrcholu, ze kterého sme prohledávání začali. Vrchol bude obsahovat tolik předchudců, kolik existuje cest z výchozího vrcholu do námi zkoumaného vrcholu.\\
+  
+  Seznam předchůdcu pro jednotlivé vrcholy by pro vzorová vstupní data a vzorové spuštění programu vypadal takto:\\
+  
+  1()\\
+  2(1,1,3,4)\\
+  3(2,2,1,2)\\
+  4(2,2,2,1)\\
+  5(1)\\
+  6(3,3,3,3)\\
+  7(3,3,3,3)\\
+  9(3,3,3,3)\\
+  
+  Hodnota před závorkou značí id vrcholu hodnoty v závorce pak id předchudců.
+  Při přidávání předchůdců bude také vhodné přidávat ohodnocení jejich hran aby bylo možné zpětně sestavit i ohodnocení dané cesty.
+  
+  \section{Vypisování výsledných cest}
+  Vzhledem k metodě ukládání cest nemáme cesty seřazené ani podle ohodnocení ani podle délky. Nejvhodnější tedy bude u každé cesty vypočítat její ohodnocení, délku a poté je setřídit.\\
+  
+  Setřízení je možné provéct více způsoby například:
+  
+  \begin{enumerate}
+  	\item Polem (kde uložíme id cesty,ohodnocení a délku), následně pole uspořádáme a budeme cesty vypisovat podle jednotlivých indexů.
+  	\item Spojovým seznam, kde nově přidanou cestu zařadíme na pozici určenou jejím ohodnocením.
+  \end{enumerate}
+
+	Spojový seznam se zde zdá jako vhodnější varianta, neboť výsledkem bude uspořádaný seznam cest, které už bude stačit pouze vypsat ve formátu uvedeném v zadání.
 
 \chapter{Implementace}
+Dle zadání byla sestavena přenositelná konzolová aplikace naprogramována v jazyce ANSI C. Program je rozdělen do 9 částí. Každá část kromě(\textbf{main}) se skládá z hlavičkového souboru s příponou .h a zdrojového textu s výkoným kódem s příponou .c.
+
+\begin{itemize}
+	\item main
+	\item dataloader
+	\item date
+	\item graph
+	\item neighbours
+	\item paths
+	\item predecessors
+	\item search
+	\item stack
+\end{itemize}
+
 
 \chapter{Uživatelská příručka}
 

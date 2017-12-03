@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "stack.h"
 #include "date.h"
-#include "predecessor.h"
+#include "predecessors.h"
 
 /* ____________________________________________________________________________
 

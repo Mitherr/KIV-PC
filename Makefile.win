@@ -4,8 +4,8 @@
 CPP      = g++.exe -D__DEBUG__
 CC       = gcc.exe -D__DEBUG__
 WINDRES  = windres.exe
-OBJ      = main.o date.o graph.o neighbours.o predecessor.o search.o stack.o path.o dataloader.o
-LINKOBJ  = main.o date.o graph.o neighbours.o predecessor.o search.o stack.o path.o dataloader.o
+OBJ      = main.o date.o graph.o neighbours.o predecessors.o search.o stack.o paths.o dataloader.o
+LINKOBJ  = main.o date.o graph.o neighbours.o predecessors.o search.o stack.o paths.o dataloader.o
 LIBS     = -L"E:/Programy/Dev-Cpp/MinGW64/lib" -L"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
 INCS     = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
@@ -36,8 +36,8 @@ graph.o: graph.c
 neighbours.o: neighbours.c
 	$(CC) -c neighbours.c -o neighbours.o $(CFLAGS)
 
-predecessor.o: predecessor.c
-	$(CC) -c predecessor.c -o predecessor.o $(CFLAGS)
+predecessors.o: predecessors.c
+	$(CC) -c predecessors.c -o predecessors.o $(CFLAGS)
 
 search.o: search.c
 	$(CC) -c search.c -o search.o $(CFLAGS)
@@ -45,8 +45,8 @@ search.o: search.c
 stack.o: stack.c
 	$(CC) -c stack.c -o stack.o $(CFLAGS)
 
-path.o: path.c
-	$(CC) -c path.c -o path.o $(CFLAGS)
+paths.o: paths.c
+	$(CC) -c paths.c -o paths.o $(CFLAGS)
 
 dataloader.o: dataloader.c
 	$(CC) -c dataloader.c -o dataloader.o $(CFLAGS)

@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include "graph.h"
 #include "date.h"
-#include "predecessor.h"
+#include "predecessors.h"
 #include "dataloader.h"
 #include "search.h"
 
@@ -80,6 +80,11 @@ int main(int argc, char *argv[]) {
 	else{
 	arguments = check_parameters(argv[2],argv[3],argv[4]);
 	if(arguments == NULL){
+		return -1;
+	}
+	
+	if(arguments[0] == arguments[1]){	
+		printf("Second parameter can't be the same as third.");
 		return -1;
 	}
 	

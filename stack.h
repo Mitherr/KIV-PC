@@ -10,7 +10,7 @@
 #define _STACK_H
 
 #include "date.h"
-#include "predecessor.h"
+#include "predecessors.h"
 
 /* ____________________________________________________________________________
 

@@ -9,10 +9,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "graph.h"
-#include "predecessor.h"
+#include "predecessors.h"
 #include "neighbours.h"
 #include "stack.h"
-#include "path.h"
+#include "paths.h"
 #include "search.h"
 
 /* ____________________________________________________________________________

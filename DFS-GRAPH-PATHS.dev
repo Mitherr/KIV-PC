@@ -111,7 +111,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit8]
-FileName=predecessor.h
+FileName=predecessors.h
 CompileCpp=0
 Folder=
 Compile=1
@@ -121,7 +121,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=predecessor.c
+FileName=predecessors.c
 CompileCpp=0
 Folder=
 Compile=1
@@ -181,7 +181,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit14]
-FileName=path.h
+FileName=paths.h
 CompileCpp=0
 Folder=
 Compile=1
@@ -191,7 +191,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit15]
-FileName=path.c
+FileName=paths.c
 CompileCpp=0
 Folder=
 Compile=1
