@@ -213,9 +213,10 @@ void append_paths_to_path_list(path_list *paths,path *p){
 	}
 	
 	while(temp->next != NULL){
-		if((temp->length > p->length) || ((temp->length == p->length) && (temp->difference_in_days > p->difference_in_days))){
+		if((temp->next->length > p->length) || ((temp->next->length == p->length) && (temp->next->difference_in_days > p->difference_in_days))){
 			p->next = temp->next;
 			temp->next = p;
+			return;
 		}
 		temp = temp->next;
 	}
@@ -319,7 +320,6 @@ path_list *create_paths_from_predecessors(predecessors *end_node){
 
 void print_path(path *p){
 	path_node *temp = NULL;
-	
 	if(p == NULL) return;
 	
 	if(p->length == 1){
@@ -338,9 +338,12 @@ void print_path(path *p){
 		temp = temp->next;
 	}
 	
-	print_date(p->first->path_date);
+	printf(";");
 	
+	//last path node has no previous edge do we have to jump on the next that we know  that exists becouse lenght is > 1
 	temp = p->first->next;
+	print_date(temp->path_date);
+	temp = temp->next;
 	
 	while(temp != NULL){
 		printf(",");
