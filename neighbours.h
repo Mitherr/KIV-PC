@@ -35,7 +35,7 @@ typedef struct EDGES{
 
 edge_node *create_edge_node(graph_node *node,char *date_s);
 edges *create_edges();
-void *append_edge_edges(edges *edges_l,edge_node *edg_n);
+void append_edge_edges(edges *edges_l,edge_node *edg_n);
 void append_neighbour(graph_node *node,edge_node *edg_n);
 void dispose_edge(edge_node **edge_l);
 void dispose_edges(edges **edges_l);

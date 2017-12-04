@@ -46,8 +46,8 @@ int *check_parameters(char *arg1,char *arg2,char *arg3){
 		printf("Wrong Parameter!\nArgument 3 should be a number\n");
 	}
 	
-	arguments[3] = atoi(arg3);
-	if(arguments[3] == 0){
+	arguments[2] = atoi(arg3);
+	if(arguments[2] == 0){
 		error = 1;
 		printf("Wrong Parameter!\nArgument 4 should be a number\n");
 	}
@@ -72,7 +72,7 @@ void print_help(){
 	printf("Incorrect number of arguments\nProgram expects 4 parameters:\nFirst parameter is name of file with a structure of a graph.\n");
 	printf("Second parameter is number(id) of node from wich you want to search.\nThird parameter is number(id) of node you search your path to\n");
 	printf("Fourth parameter is number that represents depth of a search\n");
-	printf("For example: dfs.exe graph.csv 1 2 4");
+	printf("For example: dfs.exe graph.csv 1 2 4\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -96,6 +96,7 @@ int main(int argc, char *argv[]) {
 	graph_list *graph = load_graph_from_file(argv[1]);
 	
 	if(graph == NULL){
+		free(arguments);
 		printf("There was an error during loading your graph.\n");
 		return -1;
 	}

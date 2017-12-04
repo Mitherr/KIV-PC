@@ -105,7 +105,7 @@ Program se bude spouštět příkazem \textbf{dfs.exe} <soubor-grafu> <id1> <id2
 Vámi vyvinutý program tedy bude vykonávat následující činnosti.
 \begin{enumerate}
 \item Při spuštění bez potřebných parametrů vypíše nápovědu pro jeho správné spuštění a ukončí se.
-\item Při spouštění s parametry načtě zadaný vstupní soubor do vhodné struktury reprezentující graf a mezi zadanými uzly najde všechny cesty, jejichž délka nepřekročí konstatnu nastavenou vstupním parametrem.
+\item Při spouštění s parametry načte zadaný vstupní soubor do vhodné struktury reprezentující graf a mezi zadanými uzly najde všechny cesty, jejichž délka nepřekročí konstantu nastavenou vstupním parametrem.
 \end{enumerate}
 
 Váš program může být během testování spuštěn například takto:\\
@@ -117,10 +117,10 @@ Při tomto spuštění program vyhledá všechny cesty délky 1 až 4 mezi uzly 
 Hotovou práci odevzdejte v jediném archivu typu ZIP prostřednictvím automatického odevzdávacího a validačního systému. Postupujte podle instrukcí uvedených na webu předmětu. Archiv nechť obsahuje všechny zdrojové soubory potřebné k přeložení programu, \textbf{makefile} pro Windows i Linux a dokumentaci ve formátu PDF vytvořenou v typografickém systému \TeX, resp. \LaTeX.
 
 \section{Popis činnosti programu}
-Program načte vstup ve formátu CSV, který vhodným zbůsobem uloží do paměti pro pozdější prohledávání. Následně spustí algoritmus, jehož výstupem bude seznam všech cest mezi dvěma uzly, které bude vypisovat na standardní výstup ve formátu popsaném dále.
+Program načte vstup ve formátu CSV, který vhodným způsobem uloží do paměti pro pozdější prohledávání. Následně spustí algoritmus, jehož výstupem bude seznam všech cest mezi dvěma uzly, které bude vypisovat na standardní výstup ve formátu popsaném dále.
 
 \subsection{Specifikace výstupu programu}
-Program bude na standardní výstup vypisovat jednotlivé cesty. Vždy na jeden řádek právě jednu cestu. Cesty budou popsány posloupností id jenotlivých uzlů oddělených pomlčkou (tj. znakem minus,  \uv{\textbf{-}}). následovat bude středník a popisky jednotlicých hran v grafu oddělené čárkou. Za posledním středníkem bude uvedena hodnota sekundární metriky - relevance cesty, podle které budou cesty seřazeny (viz Řazení výstupu).\\
+Program bude na standardní výstup vypisovat jednotlivé cesty. Vždy na jeden řádek právě jednu cestu. Cesty budou popsány posloupností id jednotlivých uzlů oddělených pomlčkou (tj. znakem minus,  \uv{\textbf{-}}). Následovat bude středník a popisky jednotlivých hran v grafu oddělené čárkou. Za posledním středníkem bude uvedena hodnota sekundární metriky - relevance cesty, podle které budou cesty seřazeny (viz Řazení výstupu).\\
 
 Například tedy pro hledání cest mezi uzly A a B:\\
 
@@ -130,11 +130,13 @@ Například tedy pro hledání cest mezi uzly A a B:\\
 \textbf{A-F-O-B};$h_{2}$,$h_{6}$,$h_{7}$;$m_{2,6,7}$\\
 
 
-Kde A, B, F, W, F, ... jsou popisky uzlů grafu, $h_{n}$ jsou ohodnocení hran a $m_{c1,c2...cn}$ je hodnota metrika relevance nalezené cesty.
+Kde A, B, F, W, F, ... jsou popisky uzlů grafu, $h_{n}$ jsou ohodnocení hran a $m_{c1,c2...cn}$ je hodnota metriky relevance nalezené cesty.
 
 \subsection{Řazení výstupu}
-Cesty budou na standardním výstupu seřazeny podle jejich délky. Pokud bude nalezeno více cest stejné dálky, budou seřezeny podle jejich relevance následujícím způsobem. Popisky grafu nesou informaci o kalendářním datu ve formátu YYYY--MM--DD. Každá cesta budde tedy ohodnocena celým číslem, které bude odpovídat rozdílu v počtu dní mezi nejstarším a nejnovějším datem, následně budou podle toho čísla cesty se shodnou délkou seřazeny vzestupně.\\
+Cesty budou na standardním výstupu seřazeny podle jejich délky. Pokud bude nalezeno více cest stejné délky, budou seřazeny podle jejich relevance následujícím způsobem. Popisky grafu nesou informaci o kalendářním datu ve formátu YYYY--MM--DD. Každá cesta bude tedy ohodnocena celým číslem, které bude odpovídat rozdílu v počtu dní mezi nejstarším a nejnovějším datem, následně budou podle tohoto čísla cesty se shodnou délkou seřazeny vzestupně.\\
 
+
+\newpage
 Pokud tedy nalezete cestu, kterou budou tvořit tyto 4 hrany s hodnotami:\\
 
 2000--01--15,\\
@@ -152,7 +154,7 @@ http://www.kiv.zcu.cz/studies/predmety/pc/doc/work/sw2017-02.pdf
 \setcounter{page}{1}
 
 \chapter{Analýza úlohy}
-Úloha se skládá z následujícíh kroků:
+Úloha se skládá z následujících kroků:
 \begin{enumerate}
 	\item Načtení vstupních dat.
 	\item Vybrání vhodné datové struktury.
@@ -188,8 +190,8 @@ Pro reprezentaci grafu se využívají následující struktury:
 	\item Spojový seznam
 \end{enumerate}
 
-\subsection{Matice sousednoti}
-Matice sousednosti má velikost $V \times V$ kde $V$ je počet uzlů. Vzhledem k faktu, že máme ohodnocené hrany grafu vložíme na pozice v matici, kde se nachází hrana její hodnotu a na pozice kde hrana není nějakou specialní hodnotu v našem případě (NULL). Hrany v grafu jsou zadány jako neorientované, tudíž matice bude symetrická viz vzorová matice stavené pro výše zmíněná vstupní data. Hodnota NULL je v matici nahrazena znakem \uv{--}\\
+\subsection{Matice sousednosti}
+Matice sousednosti má velikost $V \times V$, kde $V$ je počet uzlů. Vzhledem k faktu, že máme ohodnocené hrany grafu, vložíme na pozice v matici, kde se nachází hrana její hodnotu a na pozice, kde hrana není, vložíme nějakou speciální hodnotu, v našem případě (NULL). Hrany v grafu jsou zadány jako neorientované, tudíž matice bude symetrická, viz vzorová matice sestavená pro výše zmíněná vstupní data. Hodnota NULL je v matici nahrazena znakem \uv{--}\\
 
 $\begin{matrix}
  0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
@@ -204,7 +206,7 @@ $\begin{matrix}
  9 & - & - & h8 & - & - & - & - & - & - \\
 \end{matrix}$\\
 
-Neboť je matice pro orientované hrany simetrické, lze ji z paměťových důvodů polovinu zanedbat.
+Neboť je matice pro orientované hrany symetrická, lze ji z paměťových důvodů polovinu zanedbat.
 Uložená matice by tedy vypadala takto.\\
 
 $\begin{matrix}
@@ -220,36 +222,36 @@ $\begin{matrix}
 9 & - & - & h8 & - & - & - & - & - & - \\
 \end{matrix}$\\
 
-Pokud se na tuto matici podíváme pozorně zjistíme, že jde v podstatě o reprezentaci Spojovým seznamem. Jedinou výhodou je přístup na dané hrany ve složitosti $O(1)$, neboť matice je reprezentována polem. Tato výhoda má ale ovšem i negativa. Spočívají v tom, že je třeba uložit pole, které je stejně veliké jako id největšího vrcholu v našem grafu. V případě, který nastal i zde, je tedy možné že budeme mít v maticí řádky, které jsou uloženy zcela zbytečně například řádek číslo 8.\\
+Pokud se na tuto matici podíváme pozorně, zjistíme že jde v podstatě o reprezentaci Spojovým seznamem. Jedinou výhodou je přístup na dané hrany ve složitosti $O(1)$, neboť matice je reprezentována polem. Tato výhoda má ale ovšem i negativa. Spočívají v tom, že je třeba uložit pole, které je stejně veliké jako id největšího vrcholu v našem grafu. V případě, který nastal i zde, je tedy možné, že budeme mít v maticí řádky, které jsou uloženy zcela zbytečně například řádek číslo 8.\\
 
-Další nevýhodou, které si můžeme všimnout je násobnost hran. Abychom v matici uchovali více hran mezi dvěma vrcholy. Musí být hrany v matici reprezentovány spojovým seznamem nebo polem. V případ volby pole by každé přidání nové hrany znamenalo zvětší pole o jedna a přepsání všech hodnot do nového pole, což je v při načítání velkého grafu velmi neefektivní. Vhodnější je tedy spojový seznam.\\
+Další nevýhodou, které si můžeme všimnout, je násobnost hran. Abychom v matici uchovali více hran mezi dvěma vrcholy, musí být hrany v matici reprezentovány spojovým seznamem nebo polem. V případě volby pole by každé přidání nové hrany znamenalo zvětší pole o jedna a přepsání všech hodnot do nového pole, což je v při načítání velkého grafu velmi neefektivní. Vhodnější je tedy spojový seznam.\\
 
 Výsledkem této reprezentace je tedy matice spojových seznamů. Velkou výhodou je přístup k hranám vrcholů v $O(1)$. Nevýhodou může být v některých případech grafů zbytečně velká paměťová složitost a také složitost implementace.
 
 
 \subsection{Seznam sousednosti}
-Struktura seznamu sousednosti znamené, že máme pro každý vrchol vytvořen spojový seznam hran, které z něho vycházejí a v kterých je uloženo id souseda a ohodnocení hrany. Spojový seznam pro výše zmíněna data by vypadal takto.\\
+Struktura seznamu sousednosti znamená, že máme pro každý vrchol vytvořen spojový seznam hran, které z něho vycházejí a v kterých je uloženo id souseda a ohodnocení hrany. Spojový seznam pro výše zmíněna data by vypadal takto.\\
 
 \begin{figure}[!h]
 	\centering
-	 \includegraphics[scale=0.75]{spojak.pdf}
+	 \includegraphics[scale=0.5]{spojak.pdf}
 	\caption{Reprezentace grafu spojovým seznamem}
 \end{figure}
 
-Neorientované hrany jsou vyřešené přidáním stejné hrany k obou vrcholům. Násobné hrany v této implementaci nedělají žádný problém.\\
+Neorientované hrany jsou vyřešené přidáním stejné hrany k oběma vrcholům. Násobné hrany v této implementaci nedělají žádný problém.\\
 
-Vrcholy grafu je možné mít uložené v poli nebo spojovém seznamu. Výhoda pole je přístup k hraném v $O(1)$. Nevýhodou je pamětová náročnost v případě nevyužítí všech indexů pole. Spojový seznam má přístup k vrcholům v $O(n)$, což může program značně zpomalovat v případě velkého počtu vrcholů v grafu. Vhodná volba tedy záleží hlavně na znalosti vstupních dat.
+Vrcholy grafu je možné mít uložené v poli nebo spojovém seznamu. Výhoda pole je přístup k hraném v $O(1)$. Nevýhodou je paměťová náročnost v případě nevyužití všech indexů pole. Spojový seznam má přístup k vrcholům v $O(n)$, což může program značně zpomalovat v případě velkého počtu vrcholů v grafu. Vhodná volba tedy záleží hlavně na znalosti vstupních dat.
 
 \section{Modifikace algoritmu DFS}
-Vyjdeme ze základního algoritmu DFS neboť nám byl pevně stanovem zadáním úlohy.
+Vyjdeme ze základního algoritmu DFS neboť nám byl pevně stanoven zadáním úlohy.
 
 \subsection{Ukončovací podmínky}
- Ze zadání víme, že naše prohledávání bude omezeno hloubkou. Dále bylo také řečeno, že se jedná o cestu. Cesta v grafu je definová jako posloupnost vrcholů ve které není žádný vrchol obsažen dvakrát. Známe tedy dvě hlavní podmínky pro ukončení prohledávání do hloubky. První je maximální hloubka, kterou dostaneme zadanou při spuštění programu a druhá je v případě, že aktuální hledaná cesta již obsahuje daný vrchol.
+ Ze zadání víme, že naše prohledávání bude omezeno hloubkou. Dále bylo také řečeno, že se jedná o cestu. Cesta v grafu je definována jako posloupnost vrcholů ve které není žádný vrchol obsažen dvakrát. Známe tedy dvě hlavní podmínky pro ukončení prohledávání do hloubky. První je maximální hloubka, kterou dostaneme zadanou při spuštění programu a druhá je v případě, že aktuální hledaná cesta již obsahuje daný vrchol.
  
  \subsection{Ukládání cest}
-  Nyní již máme vhodný způsob jak v daném grafu cesty hledat. Bylo by ale také vhodné si je někam ukládat. Budeme si proto při každém nalezení vrcholu ukládat předchůdce, nebo-li vrchol ze kterého sme se do nově nalezeného vrcholu dostali. Vznikne nám tedy u každého vrcholu seznam předchůdců. Pokud půjdeme po jednotlivých předchůdcích dostaneme cestu z danného vrcholu do vrcholu, ze kterého sme prohledávání začali. Vrchol bude obsahovat tolik předchudců, kolik existuje cest z výchozího vrcholu do námi zkoumaného vrcholu.\\
+  Nyní již máme vhodný způsob jak v daném grafu cesty hledat. Bylo by ale také vhodné si je někam ukládat. Budeme si proto při každém nalezení vrcholu ukládat předchůdce, nebo-li vrchol ze kterého jsme se do nově nalezeného vrcholu dostali. Vznikne nám tedy u každého vrcholu seznam předchůdců. Pokud půjdeme po jednotlivých předchůdcích, dostaneme cestu z daného vrcholu do vrcholu, ze kterého jsme prohledávání začali. Vrchol bude obsahovat tolik předchůdců, kolik existuje cest z výchozího vrcholu do námi zkoumaného vrcholu.\\
   
-  Seznam předchůdcu pro jednotlivé vrcholy by pro vzorová vstupní data a vzorové spuštění programu vypadal takto:\\
+  Seznam předchůdců pro jednotlivé vrcholy by pro vzorová vstupní data a vzorové spuštění programu vypadal takto:\\
   
   1()\\
   2(1,1,3,4)\\
@@ -260,17 +262,17 @@ Vyjdeme ze základního algoritmu DFS neboť nám byl pevně stanovem zadáním 
   7(3,3,3,3)\\
   9(3,3,3,3)\\
   
-  Hodnota před závorkou značí id vrcholu hodnoty v závorce pak id předchudců.
-  Při přidávání předchůdců bude také vhodné přidávat ohodnocení jejich hran aby bylo možné zpětně sestavit i ohodnocení dané cesty.
+  Hodnota před závorkou značí id vrcholu, hodnoty v závorce pak id předchůdců.
+  Při přidávání předchůdců bude také vhodné přidávat ohodnocení jejich hran, aby bylo možné zpětně sestavit i ohodnocení dané cesty.
   
   \section{Vypisování výsledných cest}
-  Vzhledem k metodě ukládání cest nemáme cesty seřazené ani podle ohodnocení ani podle délky. Nejvhodnější tedy bude u každé cesty vypočítat její ohodnocení, délku a poté je setřídit.\\
+  Vzhledem k metodě ukládání cest nemáme cesty seřazené ani podle ohodnocení, ani podle délky. Nejvhodnější tedy bude u každé cesty vypočítat její ohodnocení a délku, a poté je setřídit.\\
   
-  Setřízení je možné provéct více způsoby například:
+  Setřízení je možné provést více způsoby například:
   
   \begin{enumerate}
-  	\item Polem (kde uložíme id cesty,ohodnocení a délku), následně pole uspořádáme a budeme cesty vypisovat podle jednotlivých indexů.
-  	\item Spojovým seznam, kde nově přidanou cestu zařadíme na pozici určenou jejím ohodnocením.
+  	\item Polem - kde uložíme id cesty,ohodnocení a délku, následně pole uspořádáme a budeme cesty vypisovat podle jednotlivých indexů.
+  	\item Spojovým seznamem - kde nově přidanou cestu zařadíme na pozici určenou jejím ohodnocením.
   \end{enumerate}
 
 	Spojový seznam se zde zdá jako vhodnější varianta, neboť výsledkem bude uspořádaný seznam cest, které už bude stačit pouze vypsat ve formátu uvedeném v zadání.
@@ -291,38 +293,38 @@ Dle zadání byla sestavena přenositelná konzolová aplikace naprogramována v
 \end{enumerate}
 
 \section{main}
-Modul main se stará o kontrolu argumentů převzatých z příkazové řádky. Kontroluje jejich počet správný typ a předává je modulu dataloader a modulu search. Při špatném počtu parametrů vypíše návod jak správně aplikaci spustit. V případě nevalidního parametru vypíše, který to byl.
+Modul main se stará o kontrolu argumentů převzatých z příkazové řádky. Kontroluje jejich počet, správný typ a předává je modulu dataloader a modulu search. Při špatném počtu parametrů vypíše návod jak správně aplikaci spustit. V případě nevalidního parametru vypíše, který to byl.
 
 \section{dataloader}
-Modul dataloader se stará o načítání dat ze souboru a vytváří z nich datovou strukturu grafu. Data jsou načítány po řádcích funkcí \textbf{fgets()}. Jako maximální počet znaků načtených z řádky je zvolena hodnota 36. K tomu číslu sme dospěli započítáním počtu znaků dvou integeru, dvou středníků a datumu ve formátu YYYY-MM-DD. Poté jsou pomocí funkce \textbf{strtok()} rozdělí na data idUzlu1, idUzlu2 a hodnotuHrany. Tyto informace jsou uložené do datové struktury v modulu graph.
+Modul dataloader se stará o načítání dat ze souboru a vytváří z nich datovou strukturu grafu. Data jsou načítány po řádcích funkcí \textbf{fgets()}. Jako maximální počet znaků načtených z řádky je zvolena hodnota 36. K tomu číslu jsme dospěli započítáním počtu znaků dvou integerů, dvou středníků a data ve formátu YYYY-MM-DD. Poté je pomocí funkce \textbf{strtok()} rozdělen na data idUzlu1, idUzlu2 a hodnotuHrany. Tyto informace jsou uložené do datové struktury v modulu graph.
 
 \section{date}
-Modul date je pouze podmožinou struktury tm z modulu <time.h> obsahuje celkem 3 hlavní funkce první je vytvoření struktury date z textu ve formátu YYYY-MM-DD a porovnání dvou datumů. Poslední funkce slouží k získání rozdílu dvou datumů ve dnech. Tato funkce je realizována pomocí modulu <time.h> a jeho metody \textbf{difftime()}.
+Modul date je pouze podmnožinou struktury tm z modulu <time.h>. Obsahuje celkem 3 hlavní funkce. První je vytvoření struktury date z textu ve formátu YYYY-MM-DD, druhá je porovnání dvou dat. Poslední funkce slouží k získání rozdílu dvou dat ve dnech. Tato funkce je realizována pomocí modulu <time.h> a jeho metody \textbf{difftime()}.
 
 \section{graph}
 Modul graph má na starosti datovou strukturu grafu. Graf je implementován pomocí spojového seznamu vrcholů. Každý vrchol obsahuje svoje id a seznam sousednosti z modulu Neighbours.
 
 \section{neighbours}
-Modul neighbours je spojový seznam hran v grafu. Hrana je reprezentována strukturou edge. Každá edge obsahuje její ohodnocení a ukazatel na vrchol grafu do kterého směřuje.
+Modul neighbours je spojový seznam hran v grafu. Hrana je reprezentována strukturou edge. Každá struktura edge obsahuje ohodnocení a ukazatel na vrchol grafu do kterého směřuje.
 
 \section{paths}
-Modul paths se skládá z dvou částí. První část je struktura path, což je spojový seznam který obsahuje vrcholy a hrany z kterých se cesta skládá. Tato struktura také obsahuje délku cestu a udružuje informaci o nejnovějším a nejstarším datu v cestě pro vypočet výsledného ohodnocení cesty. Informace o datu a dálce je auktualizována s každým přidám dalšího prvku do listu. Druhou částí je setřízený spojový seznam všech cest. Jde o spojový seznam do kterého vkládáme výše zmíněné cesty. Cesta je vložena na své místo v seznamu dle její délky a ohodnocení.
+Modul paths se skládá ze dvou částí. První část je struktura path, což je spojový seznam, který obsahuje vrcholy a hrany z kterých se cesta skládá. Tato struktura také obsahuje délku cestu a udržuje informaci o nejnovějším a nejstarším datu v cestě pro výpočet výsledného ohodnocení cesty. Informace o datu a dálce je aktualizována s každým přidáním dalšího prvku do listu. Druhou částí je setřízený spojový seznam všech cest. Jde o spojový seznam, do kterého vkládáme výše zmíněné cesty. Cesta je vložena na své místo v seznamu dle její délky a ohodnocení.
 
 \section{predecessors}
-Modul predecessors se skládá také z dvou částí. První je seznam předchůdců. Složen z jednotlivých odkazů na id vrcholu ze kterého byl aktualní vrchol přidán, ohodnocení hrany, která bylo využita a odkazu na dalšího předchůdce. Tento seznam je unikátní pro každý vrchol v grafu proto nese vlastní identifikátor podle id vrcholu. Všechny seznamy předchůdců jsou následně ještě uloženy do výslednýho seznamu, který slouží k zjistění stavu prohledávání.
+Modul predecessors se skládá také z dvou částí. První je seznam předchůdců. Je složen z jednotlivých odkazů na id vrcholu, ze kterého byl aktuální vrchol přidán, ohodnocení hrany, která bylo využita a odkazu na dalšího předchůdce. Tento seznam je unikátní pro každý vrchol v grafu a proto nese vlastní identifikátor podle id vrcholu. Všechny seznamy předchůdců jsou následně uloženy do výsledného seznamu, který slouží k zjištění stavu prohledávání.
 
 \section{search}
-Modul search obsahuje metodu prohledávání do hloubky. Tento modul byl vytvořenem s tím, že v budoucnu by mohl obsahovat další metody vyhledávní cest v grafu například modifikovaným Dijstrovým nebo BFS algoritmem.
+Modul search obsahuje metodu prohledávání do hloubky. Tento modul byl vytvořen s tím, že v budoucnu by mohl obsahovat další metody vyhledávání cest v grafu například modifikovaným Dijstrovým nebo BFS algoritmem.
 
 \section{stack}
-Modul stack obsahuje datovou strukturu zásobník. Nový prvek do zásobníku se přidává na začátek a v případě volání funkce \textbf{pop} je	ze zásobínku první prvek odstraněn a vrácen návratovou hodnotou funkce. Zásobník je implementován pro strukturu stack node která obsahuje. Vrchol na který se přechází, ohodnocení využité hrany, úroveň hloubky prohledávání a ukládá předchozí vrchol jako předchůdce.
+Modul stack obsahuje datovou strukturu zásobník. Nový prvek do zásobníku se přidává na začátek a v případě volání funkce \textbf{pop} je ze zásobníku první prvek odstraněn a vrácen návratovou hodnotou funkce. Zásobník je implementován pro strukturu stack node, která obsahuje vrchol na který se přechází, ohodnocení využité hrany, úroveň hloubky prohledávání a ukládá předchozí vrchol jako předchůdce.
 
 \chapter{Uživatelská příručka}
 \section{Přeložení programu}
-Pro překlad je zapotřebí překladač gcc. K programu je přiložen soubor Makefile lze ho tedy snadno přeložit tím že se v příkazovém řádku přepneme do složky se zdrojovými soubory a zavoláme příkaz na sestavení. Na Linuxu je to příkaz make na Windowsu mingw32-make.
+Pro překlad je zapotřebí překladač gcc. K programu je přiložen soubor Makefile a lze ho tedy snadno přeložit tím, že se v příkazovém řádku přepneme do složky se zdrojovými soubory a zavoláme příkaz na sestavení. Na Linuxu je to příkaz make na Windowsu mingw32-make.
 
-\section{Spuštení programu}
-Program lze spustit s příkazové řádky příkazem ./dfs <parametry> na systému Linux a dfs <parametry> na systému Windows.\\
+\section{Spuštění programu}
+Program lze spustit z příkazové řádky příkazem ./dfs <parametry> na systému Linux a dfs <parametry> na systému Windows.\\
 
 Parametry pro spuštění jsou <soubor-grafu> <id1> <id2> <maxD>
 \begin{itemize}
@@ -334,8 +336,8 @@ Parametry pro spuštění jsou <soubor-grafu> <id1> <id2> <maxD>
 Při spuštění s jiným počtem parametrů program vypíše nápovědu jak ho správně spustit. V případě nevalidní parametru je vypsáno, který to byl. 
 
 \chapter{Závěr}
-Práce byla vytvářena déle než za na portále naivně uvedených 40 hodin. Zejména velkou část času spotřebovala dokumentace v \LaTeX, který s předmětem jako takovým nemá nic společného. Bylo zajímavé si vyzkoušet práci s nízkoúrovňovým programovým jazykem. A však několika hodinách práce bylo jasné proč tento jazyk poslední roky strácí na oblibě.\\
-Program byl napsán tak aby byl snadno rozšířítelný. Moduly jsou připraveny k implementaci více druhů prohledávání grafu. Z výsledku by mohlo vziknout hezké poměření algoritmů při řešení tohoto NP-uplného problému.\\
-V případě prohledávání pouze grafů kde víme že id vrcholu je kladné číslo v rozsahu od $<0,2147483647>$ byl mohlo být programování značně urychleno reprezentací Matice sousednosti. A ukládáním jak vrcholu grafu tak předchůdců v grafu do pole místo do spojového seznamu. Bohužel tato informace nebyla nikde dána. Bylo tedy zvoleno více univerzálnější řešení, které je pomalejší. 
+Práce byla vytvářena déle než na portále naivně uvedených 40 hodin. Zejména velkou část času spotřebovala dokumentace v \LaTeX, který s předmětem jako takovým nemá nic společného. Bylo zajímavé si vyzkoušet práci s nízkoúrovňovým programovým jazykem, avšak po několika hodinách práce bylo jasné, proč tento jazyk poslední roky ztrácí na oblibě.\\
+Program byl napsán tak, aby byl snadno rozšířitelný. Moduly jsou připraveny k implementaci více druhů prohledávání grafu. Z výsledku by mohlo vzniknout hezké poměření algoritmů při řešení tohoto NP-úplného problému.\\
+V případě prohledávání pouze grafů, kde víme že id vrcholu je kladné číslo v rozsahu od $<0,2147483647>$ by mohlo být programování značně urychleno reprezentací Matice sousednosti a ukládáním jak vrcholu grafu, tak předchůdců v grafu do pole, místo do spojového seznamu. Bohužel tato informace nebyla nikde dána. Bylo tedy zvoleno více univerzální řešení, které je pomalejší. 
 
 \end{document}

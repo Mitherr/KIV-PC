@@ -85,7 +85,7 @@ edges *create_edges(){
    ____________________________________________________________________________
 */
 
-void *append_edge_edges(edges *edges_l,edge_node *edg_n){
+void append_edge_edges(edges *edges_l,edge_node *edg_n){
 	edge_node *temp = NULL;
 	
 	if(edges_l == NULL || edg_n == NULL) return;

@@ -27,7 +27,7 @@
 predecessor_node *create_predecessor(int id_predecessor,date *d,predecessor_node *predecessors){
 	predecessor_node *temp = NULL;
 	
-	if(d == NULL || predecessors == NULL) return;
+	if(d == NULL || predecessors == NULL) return NULL;
 	
 	temp = (predecessor_node *) malloc(sizeof(predecessor_node));
 	if(temp == NULL){
@@ -220,7 +220,7 @@ predecessors *find_predecessors_in_list(predecessors_list *list_pr,int id_node){
 int predeccesor_contains_id(predecessor_node *node,int id_node){
 	predecessor_node *temp = NULL;
 	
-	if(node == NULL) return;
+	if(node == NULL) return 0;
 	
 	temp = node->previous_path;
 	

@@ -56,6 +56,8 @@ int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 		
 		append_predecessor_predecessors(temp2,temp3);
 		
+		if(temp->node != NULL){
+		
 		if(temp->node->neighbours != NULL && temp->level < max_level){
 			if(temp->node->neighbours->head != NULL){
 				temp4 = temp->node->neighbours->head;
@@ -75,6 +77,7 @@ int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 				}
 			}
 		}
+	}
 			
 		}
 	}
@@ -94,6 +97,8 @@ int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 		 
 		append_predecessor_predecessors(temp2,temp3);
 		append_predecessors_predecessors_list(closed,temp2);
+		
+		if(temp->node != NULL){
 	
 		if(temp->node->neighbours != NULL && temp->level < max_level){
 			if(temp->node->neighbours->head != NULL){
@@ -116,6 +121,7 @@ int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 			}
 		}
 	}
+	}
 	dispose_stack_node(&temp);
 	}
 	
@@ -137,7 +143,7 @@ int dfs_alg(stack *open,predecessors_list *closed,int max_level){
    ____________________________________________________________________________
 */
 
-void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int max_level){
+void search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int max_level){
 	stack *open = NULL;
 	stack_node *new_node = NULL;
 	predecessors_list *closed = NULL;

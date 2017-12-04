@@ -89,7 +89,7 @@ void append_node_list_end(graph_list *graph,graph_node *node){
 	
 	if(graph->head == NULL){
 		graph->head = node;
-		return graph->head;
+		return;
 	}
 	
 	temp = graph->head;

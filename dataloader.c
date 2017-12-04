@@ -7,6 +7,7 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "dataloader.h"
 #include "graph.h"

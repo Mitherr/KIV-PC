@@ -9,7 +9,7 @@
 #ifndef _SEARCH_H
 #define _SEARCH_H
 
-void *search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int max_level);
+void search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int max_level);
 
 #endif
 

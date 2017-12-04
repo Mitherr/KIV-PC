@@ -29,7 +29,7 @@
 stack_node *create_stack_node(graph_node *node,date *d,predecessor_node *previous,int level){
 	stack_node *temp = NULL;
 	
-	if(node == NULL || d == NULL || previous == NULL) return;
+	if(node == NULL || d == NULL || previous == NULL) return NULL;
 	
 	temp = (stack_node *) malloc(sizeof(stack_node));
 	if(temp == NULL){

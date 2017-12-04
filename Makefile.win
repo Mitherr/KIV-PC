@@ -1,20 +1,11 @@
-# Project: DFS-GRAPH-PATHS
-# Makefile created by Dev-C++ 5.11
-
-CPP      = g++.exe -D__DEBUG__
-CC       = gcc.exe -D__DEBUG__
-WINDRES  = windres.exe
 OBJ      = main.o date.o graph.o neighbours.o predecessors.o search.o stack.o paths.o dataloader.o
 LINKOBJ  = main.o date.o graph.o neighbours.o predecessors.o search.o stack.o paths.o dataloader.o
-LIBS     = -L"E:/Programy/Dev-Cpp/MinGW64/lib" -L"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -static-libgcc -g3
-INCS     = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
-CXXINCS  = -I"E:/Programy/Dev-Cpp/MinGW64/include" -I"E:/Programy/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"E:/Programy/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++"
-BIN      = DFS-GRAPH-PATHS.exe
-CXXFLAGS = $(CXXINCS) -g3
-CFLAGS   = $(INCS) -g3
+BIN      = dfs.exe
+CXXFLAGS = $(CXXINCS) -fsyntax-only -g3
+CFLAGS   = $(INCS) -fsyntax-only -g3
 RM       = rm.exe -f
 
-.PHONY: all all-before all-after clean clean-custom
+.PHONY: all all-before all-after clean clean-custom $(OBJ) $(BIN)
 
 all: all-before $(BIN) all-after
 
@@ -22,31 +13,30 @@ clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 
 $(BIN): $(OBJ)
-	$(CC) $(LINKOBJ) -o $(BIN) $(LIBS)
 
 main.o: main.c
-	$(CC) -c main.c -o main.o $(CFLAGS)
+	$(CC) -c main.c $(CFLAGS)
 
 date.o: date.c
-	$(CC) -c date.c -o date.o $(CFLAGS)
+	$(CC) -c date.c $(CFLAGS)
 
 graph.o: graph.c
-	$(CC) -c graph.c -o graph.o $(CFLAGS)
+	$(CC) -c graph.c $(CFLAGS)
 
 neighbours.o: neighbours.c
-	$(CC) -c neighbours.c -o neighbours.o $(CFLAGS)
+	$(CC) -c neighbours.c $(CFLAGS)
 
 predecessors.o: predecessors.c
-	$(CC) -c predecessors.c -o predecessors.o $(CFLAGS)
+	$(CC) -c predecessors.c $(CFLAGS)
 
 search.o: search.c
-	$(CC) -c search.c -o search.o $(CFLAGS)
+	$(CC) -c search.c $(CFLAGS)
 
 stack.o: stack.c
-	$(CC) -c stack.c -o stack.o $(CFLAGS)
+	$(CC) -c stack.c $(CFLAGS)
 
 paths.o: paths.c
-	$(CC) -c paths.c -o paths.o $(CFLAGS)
+	$(CC) -c paths.c $(CFLAGS)
 
 dataloader.o: dataloader.c
-	$(CC) -c dataloader.c -o dataloader.o $(CFLAGS)
+	$(CC) -c dataloader.c $(CFLAGS)
