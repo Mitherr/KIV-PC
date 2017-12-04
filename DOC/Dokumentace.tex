@@ -276,9 +276,9 @@ Vyjdeme ze základního algoritmu DFS neboť nám byl pevně stanovem zadáním 
 	Spojový seznam se zde zdá jako vhodnější varianta, neboť výsledkem bude uspořádaný seznam cest, které už bude stačit pouze vypsat ve formátu uvedeném v zadání.
 
 \chapter{Implementace}
-Dle zadání byla sestavena přenositelná konzolová aplikace naprogramována v jazyce ANSI C. Program je rozdělen do 9 částí. Každá část kromě(\textbf{main}) se skládá z hlavičkového souboru s příponou .h a zdrojového textu s výkoným kódem s příponou .c.
+Dle zadání byla sestavena přenositelná konzolová aplikace naprogramována v jazyce ANSI C. Program je rozdělen do 9 modulů. Každá část kromě (\textbf{main}) se skládá z hlavičkového souboru s příponou .h a zdrojového textu s výkoným kódem s příponou .c.
 
-\begin{itemize}
+\begin{enumerate}
 	\item main
 	\item dataloader
 	\item date
@@ -288,7 +288,17 @@ Dle zadání byla sestavena přenositelná konzolová aplikace naprogramována v
 	\item predecessors
 	\item search
 	\item stack
-\end{itemize}
+\end{enumerate}
+
+\section{main}
+Modul main se stará o kontrolu argumentů převzatých z příkazové řádky. Kontroluje jejich počet správný typ a předává je modulu dataloader a modulu search. Při špatném počtu parametrů vypíše návod jak správně aplikaci spustit. V případě nevalidního parametru vypíše, který to byl.
+
+\section{dataloader}
+Modul dataloader se stará o načítání dat ze souboru a vytváří z nich datovou strukturu grafu. Data jsou načítány po řádcích funkcí \textbf{fgets()}. Jako maximální počet znaků načtených z řádky je zvolena hodnota 36. K tomu číslu sme dospěli započítáním počtu znaků dvou integeru, dvou středníků a datumu ve formátu YYYY-MM-DD. Poté jsou pomocí funkce \textbf{strtok()} rozdělí na data idUzlu1, idUzlu2 a hodnotuHrany. Tyto informace jsou uložené do datové struktury v modulu graph.
+
+\section{date}
+Modul date je pouze podmožinou struktury tm z modulu <time.h> obsahuje celkem 3 hlavní funkce první je vytvoření struktury date z textu ve formátu YYYY-MM-DD a porovnání dvou datumů. Poslední funkce slouží k získání rozdílu dvou datumů ve dnech. Tato funkce je realizována pomocí modulu <time.h> a jeho metody \textbf{difftime()}.
+
 
 
 \chapter{Uživatelská příručka}

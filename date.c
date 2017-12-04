@@ -28,7 +28,7 @@
    ____________________________________________________________________________
 */
 
-date *create_date(int year,int month,int day){
+static date *create_date(int year,int month,int day){
 	date *temp = NULL;
 	
 	temp = (date *) malloc(sizeof(date));
@@ -94,7 +94,7 @@ date *create_date_from_str(char *date_s){
 	month[2] = '\0';
 	
 	day = (char *) malloc(sizeof(char)*3);
-	if(month == NULL){
+	if(day == NULL){
 		printf("Out of memory (date->day)\n");
 		free(year);
 		free(month);
@@ -177,13 +177,13 @@ int compare(date *d1,date *d2){
 */
 
 int difference_days(date *oldest,date *newest){
-	int comp, days;
+	int days;
 	struct tm start_date = {0};
 	struct tm end_date = {0};
 	time_t start_time, end_time;
 	double seconds;
 	
-	if(oldest == NULL || newest == NULL) return;
+	if(oldest == NULL || newest == NULL) return 0;
 	
 	if(oldest == newest) return 0;
 	

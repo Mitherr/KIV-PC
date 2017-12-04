@@ -35,7 +35,8 @@ graph_list *load_graph_from_file(char *file_name){
 	int temp_number1;
 	int temp_number2;
 	int error = 0;
-	edge_node *temp;
+	edge_node *temp_e1;
+	edge_node *temp_e2;
 	
 	
 	if(file_name == NULL) return NULL;
@@ -117,20 +118,21 @@ graph_list *load_graph_from_file(char *file_name){
 			break;
 		}
 		
-   		temp = create_edge_node(temp2,token);
-   		if(temp == NULL){
+   		temp_e1 = create_edge_node(temp2,token);
+   		if(temp_e1 == NULL){
 			error = 1;
 			break;
 		}
 		
-		append_edge_edges(temp1->neighbours,temp);		
-		temp = create_edge_node(temp1,token);		
-		if(temp == NULL){
+		append_edge_edges(temp1->neighbours,temp_e1);		
+		temp_e2 = create_edge_node(temp1,token);		
+		if(temp_e2 == NULL){
+			dispose_edge(&temp_e1);
 			error = 1;
 			break;
 		}
 		
-		append_edge_edges(temp2->neighbours,temp);
+		append_edge_edges(temp2->neighbours,temp_e2);
    }
 
     fclose(fp);

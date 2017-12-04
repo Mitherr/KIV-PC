@@ -29,7 +29,7 @@ typedef struct DATE{
    ____________________________________________________________________________
 */
 
-date *create_date(int year,int month,int day);
+static date *create_date(int year,int month,int day);
 date *create_date_from_str(char *date_s);
 int compare(date *d1,date *d2);
 int difference_days(date *oldest,date *newest);

@@ -30,6 +30,10 @@ int *check_parameters(char *arg1,char *arg2,char *arg3){
 	int *arguments = (int *) malloc(3*sizeof(int));
 	int error = 0;
 	
+	if(arguments == NULL){
+		return NULL;
+	}
+	
 	arguments[0] = atoi(arg1);
 	if(arguments[0] == 0){
 		error = 1;
@@ -85,6 +89,7 @@ int main(int argc, char *argv[]) {
 	
 	if(arguments[0] == arguments[1]){	
 		printf("Second parameter can't be the same as third.");
+		free(arguments);
 		return -1;
 	}
 	

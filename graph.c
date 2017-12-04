@@ -82,7 +82,7 @@ graph_list *create_graph_list(){
    ____________________________________________________________________________
 */
 
-void *append_node_list_end(graph_list *graph,graph_node *node){
+void append_node_list_end(graph_list *graph,graph_node *node){
 	graph_node *temp = NULL;
 	
 	if(graph == NULL || node == NULL) return;
