@@ -189,19 +189,19 @@ Pro reprezentaci grafu se využívají následující struktury:
 \end{enumerate}
 
 \subsection{Matice sousednoti}
-Matice sousednosti má velikost $V \times V$ kde $V$ je počet uzlů. Vzhledem k faktu, že máme ohodnocené hrany grafu vložíme na pozice v matici, kde se nachází hrana její hodnotu a na pozice kde hrana není nějakou specialní hodnotu v našem případě (NULL). Hrany v grafu jsou zadány jako neorientované, tudíž matice bude symetrická viz vzorová matice stavené pro výše zmíněná vstupní data.\\
+Matice sousednosti má velikost $V \times V$ kde $V$ je počet uzlů. Vzhledem k faktu, že máme ohodnocené hrany grafu vložíme na pozice v matici, kde se nachází hrana její hodnotu a na pozice kde hrana není nějakou specialní hodnotu v našem případě (NULL). Hrany v grafu jsou zadány jako neorientované, tudíž matice bude symetrická viz vzorová matice stavené pro výše zmíněná vstupní data. Hodnota NULL je v matici nahrazena znakem \uv{--}\\
 
 $\begin{matrix}
  0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
- 1 & NULL & h1,h2 & h3 & h4 & h10 & NULL & NULL & NULL & NULL \\
- 2 & h1,h2 & NULL & h5 & h9 & NULL & NULL & NULL & NULL & NULL \\
- 3 & h3 & h5  & NULL & NULL & NULL & h6 & h7 & NULL & h8 \\
- 4 & h4 & h9 & NULL & NULL & NULL & NULL & NULL & NULL & NULL \\
- 5 & h10 & NULL & NULL & NULL & NULL & NULL & NULL & NULL & NULL \\
- 6 & NULL & NULL & h6 & NULL & NULL & NULL & NULL & NULL & NULL \\
- 7 & NULL & NULL & h7 & NULL & NULL & NULL & NULL & NULL & NULL \\
- 8 & NULL & NULL & NULL & NULL & NULL & NULL & NULL & NULL & NULL \\
- 9 & NULL & NULL & h8 & NULL & NULL & NULL & NULL & NULL & NULL \\
+ 1 & - & h1,h2 & h3 & h4 & h10 & - & - & - & - \\
+ 2 & h1,h2 & - & h5 & h9 & - & - & - & - & - \\
+ 3 & h3 & h5  & - & - & - & h6 & h7 & - & h8 \\
+ 4 & h4 & h9 & - & - & - & - & - & - & - \\
+ 5 & h10 & - & - & - & - & - & - & - & - \\
+ 6 & - & - & h6 & - & - & - & - & - & - \\
+ 7 & - & - & h7 & - & - & - & - & - & - \\
+ 8 & - & - & - & - & - & - & - & - & - \\
+ 9 & - & - & h8 & - & - & - & - & - & - \\
 \end{matrix}$\\
 
 Neboť je matice pro orientované hrany simetrické, lze ji z paměťových důvodů polovinu zanedbat.
@@ -209,15 +209,15 @@ Uložená matice by tedy vypadala takto.\\
 
 $\begin{matrix}
 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\
-1 & NULL  \\
-2 & h1,h2 & NULL  \\
-3 & h3 & h5  & NULL  \\
-4 & h4 & h9 & NULL & NULL  \\
-5 & h10 & NULL & NULL & NULL & NULL  \\
-6 & NULL & NULL & h6 & NULL & NULL & NULL \\
-7 & NULL & NULL & h7 & NULL & NULL & NULL & NULL \\
-8 & NULL & NULL & NULL & NULL & NULL & NULL & NULL & NULL  \\
-9 & NULL & NULL & h8 & NULL & NULL & NULL & NULL & NULL & NULL \\
+1 & -  \\
+2 & h1,h2 & -  \\
+3 & h3 & h5  & -  \\
+4 & h4 & h9 & - & -  \\
+5 & h10 & - & - & - & -  \\
+6 & - & - & h6 & - & - & - \\
+7 & - & - & h7 & - & - & - & - \\
+8 & - & - & - & - & - & - & - & -  \\
+9 & - & - & h8 & - & - & - & - & - & - \\
 \end{matrix}$\\
 
 Pokud se na tuto matici podíváme pozorně zjistíme, že jde v podstatě o reprezentaci Spojovým seznamem. Jedinou výhodou je přístup na dané hrany ve složitosti $O(1)$, neboť matice je reprezentována polem. Tato výhoda má ale ovšem i negativa. Spočívají v tom, že je třeba uložit pole, které je stejně veliké jako id největšího vrcholu v našem grafu. V případě, který nastal i zde, je tedy možné že budeme mít v maticí řádky, které jsou uloženy zcela zbytečně například řádek číslo 8.\\
@@ -227,8 +227,8 @@ Další nevýhodou, které si můžeme všimnout je násobnost hran. Abychom v m
 Výsledkem této reprezentace je tedy matice spojových seznamů. Velkou výhodou je přístup k hranám vrcholů v $O(1)$. Nevýhodou může být v některých případech grafů zbytečně velká paměťová složitost a také složitost implementace.
 
 
-\subsection{Spojový seznam}
-Struktura spojového seznamu znamené, že máme pro každý vrchol vytvořen spojový seznam hran, které z něho vycházejí a v kterých je uloženo id souseda a ohodnocení hrany. Spojový seznam pro výše zmíněna data by vypadal takto.\\
+\subsection{Seznam sousednosti}
+Struktura seznamu sousednosti znamené, že máme pro každý vrchol vytvořen spojový seznam hran, které z něho vycházejí a v kterých je uloženo id souseda a ohodnocení hrany. Spojový seznam pro výše zmíněna data by vypadal takto.\\
 
 \begin{figure}[!h]
 	\centering
@@ -299,10 +299,43 @@ Modul dataloader se stará o načítání dat ze souboru a vytváří z nich dat
 \section{date}
 Modul date je pouze podmožinou struktury tm z modulu <time.h> obsahuje celkem 3 hlavní funkce první je vytvoření struktury date z textu ve formátu YYYY-MM-DD a porovnání dvou datumů. Poslední funkce slouží k získání rozdílu dvou datumů ve dnech. Tato funkce je realizována pomocí modulu <time.h> a jeho metody \textbf{difftime()}.
 
+\section{graph}
+Modul graph má na starosti datovou strukturu grafu. Graf je implementován pomocí spojového seznamu vrcholů. Každý vrchol obsahuje svoje id a seznam sousednosti z modulu Neighbours.
 
+\section{neighbours}
+Modul neighbours je spojový seznam hran v grafu. Hrana je reprezentována strukturou edge. Každá edge obsahuje její ohodnocení a ukazatel na vrchol grafu do kterého směřuje.
+
+\section{paths}
+Modul paths se skládá z dvou částí. První část je struktura path, což je spojový seznam který obsahuje vrcholy a hrany z kterých se cesta skládá. Tato struktura také obsahuje délku cestu a udružuje informaci o nejnovějším a nejstarším datu v cestě pro vypočet výsledného ohodnocení cesty. Informace o datu a dálce je auktualizována s každým přidám dalšího prvku do listu. Druhou částí je setřízený spojový seznam všech cest. Jde o spojový seznam do kterého vkládáme výše zmíněné cesty. Cesta je vložena na své místo v seznamu dle její délky a ohodnocení.
+
+\section{predecessors}
+Modul predecessors se skládá také z dvou částí. První je seznam předchůdců. Složen z jednotlivých odkazů na id vrcholu ze kterého byl aktualní vrchol přidán, ohodnocení hrany, která bylo využita a odkazu na dalšího předchůdce. Tento seznam je unikátní pro každý vrchol v grafu proto nese vlastní identifikátor podle id vrcholu. Všechny seznamy předchůdců jsou následně ještě uloženy do výslednýho seznamu, který slouží k zjistění stavu prohledávání.
+
+\section{search}
+Modul search obsahuje metodu prohledávání do hloubky. Tento modul byl vytvořenem s tím, že v budoucnu by mohl obsahovat další metody vyhledávní cest v grafu například modifikovaným Dijstrovým nebo BFS algoritmem.
+
+\section{stack}
+Modul stack obsahuje datovou strukturu zásobník. Nový prvek do zásobníku se přidává na začátek a v případě volání funkce \textbf{pop} je	ze zásobínku první prvek odstraněn a vrácen návratovou hodnotou funkce. Zásobník je implementován pro strukturu stack node která obsahuje. Vrchol na který se přechází, ohodnocení využité hrany, úroveň hloubky prohledávání a ukládá předchozí vrchol jako předchůdce.
 
 \chapter{Uživatelská příručka}
+\section{Přeložení programu}
+Pro překlad je zapotřebí překladač gcc. K programu je přiložen soubor Makefile lze ho tedy snadno přeložit tím že se v příkazovém řádku přepneme do složky se zdrojovými soubory a zavoláme příkaz na sestavení. Na Linuxu je to příkaz make na Windowsu mingw32-make.
+
+\section{Spuštení programu}
+Program lze spustit s příkazové řádky příkazem ./dfs <parametry> na systému Linux a dfs <parametry> na systému Windows.\\
+
+Parametry pro spuštění jsou <soubor-grafu> <id1> <id2> <maxD>
+\begin{itemize}
+	\item Symbol <soubor-grafu> zastupuje parametr - název vstupního souboru se strukturou grafu.
+	\item Následují identifikátory (dále jen id) dvou uzlů v grafu <id1> a <id2>, mezi kterými bude spouštěn proces hledání cest.
+	\item <maxD> je parametr popisující maximální délku cest, které mají být nalezeny.
+\end{itemize}
+
+Při spuštění s jiným počtem parametrů program vypíše nápovědu jak ho správně spustit. V případě nevalidní parametru je vypsáno, který to byl. 
 
 \chapter{Závěr}
+Práce byla vytvářena déle než za na portále naivně uvedených 40 hodin. Zejména velkou část času spotřebovala dokumentace v \LaTeX, který s předmětem jako takovým nemá nic společného. Bylo zajímavé si vyzkoušet práci s nízkoúrovňovým programovým jazykem. A však několika hodinách práce bylo jasné proč tento jazyk poslední roky strácí na oblibě.\\
+Program byl napsán tak aby byl snadno rozšířítelný. Moduly jsou připraveny k implementaci více druhů prohledávání grafu. Z výsledku by mohlo vziknout hezké poměření algoritmů při řešení tohoto NP-uplného problému.\\
+V případě prohledávání pouze grafů kde víme že id vrcholu je kladné číslo v rozsahu od $<0,2147483647>$ byl mohlo být programování značně urychleno reprezentací Matice sousednosti. A ukládáním jak vrcholu grafu tak předchůdců v grafu do pole místo do spojového seznamu. Bohužel tato informace nebyla nikde dána. Bylo tedy zvoleno více univerzálnější řešení, které je pomalejší. 
 
 \end{document}

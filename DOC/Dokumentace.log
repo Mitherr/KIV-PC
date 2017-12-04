@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.12.2)  4 DEC 2017 02:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6500 64-bit) (preloaded format=pdflatex 2017.12.2)  4 DEC 2017 17:01
 entering extended mode
 **./Dokumentace.tex
 (Dokumentace.tex
@@ -909,11 +909,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 192--193
  []
 
 
-Overfull \hbox (28.83746pt too wide) in paragraph at lines 194--206
-[]$ [] $ 
- []
-
-
 Underfull \hbox (badness 10000) in paragraph at lines 194--206
 
  []
@@ -921,11 +916,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 194--206
 
 Underfull \hbox (badness 10000) in paragraph at lines 207--209
 
- []
-
-
-Overfull \hbox (28.83746pt too wide) in paragraph at lines 210--222
-[]$ [] $ 
  []
 
 
@@ -987,13 +977,18 @@ Underfull \hbox (badness 10000) in paragraph at lines 267--268
 Kapitola 3.
 [7
 
-] [8]
+] [8] [9]
 Kapitola 4.
-[9
+
+Underfull \hbox (badness 10000) in paragraph at lines 325--326
+
+ []
+
+[10
 
 ]
 Kapitola 5.
-[10
+[11
 
 ] (Dokumentace.aux) ) 
 Here is how much of TeX's memory you used:
@@ -1003,7 +998,7 @@ Here is how much of TeX's memory you used:
  7682 multiletter control sequences out of 15000+200000
  50362 words of font info for 44 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,7n,31p,600b,217s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 41i,7n,31p,641b,217s stack positions out of 5000i,500n,10000p,200000b,50000s
 {E:/Programy/MiKTeX/fonts/enc/dvips/lm/lm-rm.enc}{E:/Progr
 amy/MiKTeX/fonts/enc/dvips/lm/lm-mathsy.enc}{E:/Programy/MiKTeX/fonts/enc/dvips
 /lm/lm-mathit.enc}{E:/Programy/MiKTeX/fonts/enc/dvips/lm/lm-ec.enc}{E:/Programy
@@ -1013,9 +1008,9 @@ iKTeX/fonts/type1/public/lm/lmmi8.pfb><E:/Programy/MiKTeX/fonts/type1/public/lm
 /lmr12.pfb><E:/Programy/MiKTeX/fonts/type1/public/lm/lmr17.pfb><E:/Programy/MiK
 TeX/fonts/type1/public/lm/lmr8.pfb><E:/Programy/MiKTeX/fonts/type1/public/lm/lm
 sy10.pfb>
-Output written on Dokumentace.pdf (14 pages, 170232 bytes).
+Output written on Dokumentace.pdf (15 pages, 175492 bytes).
 PDF statistics:
- 94 PDF objects out of 1000 (max. 8388607)
+ 97 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 
