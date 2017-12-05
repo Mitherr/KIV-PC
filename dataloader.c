@@ -55,6 +55,7 @@ graph_list *load_graph_from_file(char *file_name){
 	}
 	
 	while(fgets (str, MAX_NUMBER_OF_CHARS_ON_LINE, fp) != NULL){
+		printf(str);
 		
 		token = strtok(str, DELIM);
 		if(token == NULL){

@@ -160,12 +160,17 @@ void search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int ma
 	
 	temp = find_graph_node(graph,id_node_end);
 	
-	if(temp == NULL) return;
+	if(temp == NULL){
+		printf("id of a node in argument 2 is not existing");
+		return;
+	}
 	
 	temp = find_graph_node(graph,id_node_start);
 	
-	if(temp == NULL) return;
-	
+	if(temp == NULL){
+		printf("id of a node in argument 3 is not existing");
+		return;
+	}
 	open = create_stack();
 	if(open == NULL){
 		return;
