@@ -55,13 +55,10 @@ graph_list *load_graph_from_file(char *file_name){
 	}
 	
 	while(fgets (str, MAX_NUMBER_OF_CHARS_ON_LINE, fp) != NULL){
-		printf(str);
 		
 		token = strtok(str, DELIM);
-		if(token == NULL){
-			error = 1;
-			break;
-		}
+		
+		if(!(token[0] == '\n' || token[0] == '\r')){
 		
 		temp_number1 = atoi(token);
 		
@@ -75,6 +72,7 @@ graph_list *load_graph_from_file(char *file_name){
 				
 				if(temp1 == NULL){
 					error = 1;
+					printf("3\n");
 					break;
 				}
 				
@@ -83,12 +81,14 @@ graph_list *load_graph_from_file(char *file_name){
 		}
 		else{
 			error = 1;
+			printf("4\n");
 			break;
 		}
 		
    		token = strtok(NULL, DELIM);
    		if(token == NULL){
 			error = 1;
+			printf("5\n");
 			break;
 		}
 		
@@ -103,6 +103,8 @@ graph_list *load_graph_from_file(char *file_name){
 				temp2 = create_graph_node(temp_number2);
 				if(temp2 == NULL){
 					error = 1;
+					printf("6 memory-loading \n");
+					printf(token);
 					break;
 				}
 								
@@ -111,18 +113,22 @@ graph_list *load_graph_from_file(char *file_name){
 		}
 		else{
 			error = 1;
+			printf("7 token(2)\n");
 			break;
 		}
    		
    		token = strtok(NULL, DELIM);
    		if(token == NULL){
 			error = 1;
+			printf("8 token(3) \n");
+			printf(token);
 			break;
 		}
 		
    		temp_e1 = create_edge_node(temp2,token);
    		if(temp_e1 == NULL){
 			error = 1;
+			printf("9 memory-loading \n");
 			break;
 		}
 		
@@ -130,11 +136,13 @@ graph_list *load_graph_from_file(char *file_name){
 		temp_e2 = create_edge_node(temp1,token);		
 		if(temp_e2 == NULL){
 			dispose_edge(&temp_e1);
+			printf("10 memory-loading \n");
 			error = 1;
 			break;
 		}
 		
 		append_edge_edges(temp2->neighbours,temp_e2);
+	}
    }
 
     fclose(fp);

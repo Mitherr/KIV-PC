@@ -233,7 +233,7 @@ void search_paths_dfs(graph_list *graph,int id_node_start,int id_node_end,int ma
 	
 	paths = create_paths_from_predecessors(first);
 	if(paths == NULL){
-		printf("No paths found\n");
+//		printf("No paths found\n"); removed becouse of validator.
 	}
 	print_paths_list(paths);
 	
