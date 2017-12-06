@@ -13,6 +13,72 @@
 #include "graph.h"
 #include "neighbours.h"
 
+
+/* ____________________________________________________________________________
+
+   	edge_node *load_edge_node(graph_node *from,graph_node *to,char *token)
+    
+	Creates edge node from node "from" to node "to" with value of date in token.
+	If malloc failes or date format is wrong return NULL.
+    
+    returns:
+    edge_node if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
+
+static edge_node *load_edge_node(graph_node *from,graph_node *to,char *token){
+	edge_node *temp = NULL;
+	
+	temp = create_edge_node(to,token);
+   	if(temp == NULL){
+		printf("Load edge node failed\n");
+		return NULL;
+	}
+		
+	append_edge_edges(from->neighbours,temp);
+	return temp;			
+}
+
+/* ____________________________________________________________________________
+
+   	graph_node *load_graph_node(graph_list *graph,char *token)
+    
+    Check if token is an integer if that agrees. Search if Graf already contains node if not creates it and append to the graf.
+    Else returns pointer on a graph_node found in a graph with id from token.
+    
+    returns:
+    graph_node if succeed
+    NULL if fails
+   ____________________________________________________________________________
+*/
+
+static graph_node *load_graph_node(graph_list *graph,char *token){
+	graph_node *temp = NULL;
+	int temp_number = 0;
+
+	temp_number = atoi(token);
+		
+	if(temp_number != 0){
+			
+		temp = find_graph_node(graph,temp_number) ;
+			
+		if(temp == NULL){
+				
+		temp = create_graph_node(temp_number);
+				
+		if(temp == NULL){
+			printf("Load graph node failed.\n");
+			return NULL;
+		}
+				
+		append_node_list_end(graph,temp);
+		return temp;
+		}
+	}
+	return temp;
+}
+
 /* ____________________________________________________________________________
 
    	graph_list *load_graph_from_file(char *file_name)
@@ -36,8 +102,7 @@ graph_list *load_graph_from_file(char *file_name){
 	int temp_number1;
 	int temp_number2;
 	int error = 0;
-	edge_node *temp_e1;
-	edge_node *temp_e2;
+	edge_node *temp_e;
 	
 	
 	if(file_name == NULL) return NULL;
@@ -57,92 +122,54 @@ graph_list *load_graph_from_file(char *file_name){
 	while(fgets (str, MAX_NUMBER_OF_CHARS_ON_LINE, fp) != NULL){
 		
 		token = strtok(str, DELIM);
+   		if(token == NULL){
+			error = 1;
+			printf("failed on token(1) - (wrong data)\n");
+			break;
+		}
 		
 		if(!(token[0] == '\n' || token[0] == '\r')){
 		
-		temp_number1 = atoi(token);
-		
-		if(temp_number1 != 0){
-			
-			temp1 = find_graph_node(graph,temp_number1) ;
-			
-			if(temp1 == NULL){
-				
-				temp1 = create_graph_node(temp_number1);
-				
-				if(temp1 == NULL){
-					error = 1;
-					printf("3\n");
-					break;
-				}
-				
-				append_node_list_end(graph,temp1);
-			}
-		}
-		else{
+		temp1 = load_graph_node(graph,token);		
+		if(temp1 == NULL){
 			error = 1;
-			printf("4\n");
-			break;
+			break;	
 		}
 		
    		token = strtok(NULL, DELIM);
    		if(token == NULL){
 			error = 1;
-			printf("5\n");
+			printf("failed on token(2) - (wrong data)\n");
 			break;
 		}
 		
-   		temp_number2 = atoi(token);
-   		
-			if(temp_number2 != 0){
-				
-				temp2 = find_graph_node(graph,temp_number2);
-					
-			if(temp2 == NULL){
-				
-				temp2 = create_graph_node(temp_number2);
-				if(temp2 == NULL){
-					error = 1;
-					printf("6 memory-loading \n");
-					printf(token);
-					break;
-				}
-								
-				append_node_list_end(graph,temp2);
-			}
-		}
-		else{
+   		temp2 = load_graph_node(graph,token);   		
+   		if(temp2 == NULL){
 			error = 1;
-			printf("7 token(2)\n");
-			break;
+			break;	
 		}
    		
    		token = strtok(NULL, DELIM);
    		if(token == NULL){
 			error = 1;
-			printf("8 token(3) \n");
+			printf("failed on token(3) - (wrong data)\n");
 			printf(token);
 			break;
 		}
 		
-   		temp_e1 = create_edge_node(temp2,token);
-   		if(temp_e1 == NULL){
+		temp_e = load_edge_node(temp1,temp2,token);
+   		if(temp_e == NULL){
 			error = 1;
-			printf("9 memory-loading \n");
 			break;
 		}
-		
-		append_edge_edges(temp1->neighbours,temp_e1);		
-		temp_e2 = create_edge_node(temp1,token);		
-		if(temp_e2 == NULL){
-			dispose_edge(&temp_e1);
-			printf("10 memory-loading \n");
+			
+		temp_e = load_edge_node(temp2,temp1,token);		
+		if(temp_e == NULL){
 			error = 1;
 			break;
 		}
 		
-		append_edge_edges(temp2->neighbours,temp_e2);
-	}
+		}	
    }
 
     fclose(fp);
