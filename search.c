@@ -15,15 +15,53 @@
 #include "paths.h"
 #include "search.h"
 
+
 /* ____________________________________________________________________________
 
-  	int dfs_alg(stack *open,predecessors_list *closed,int max_level)
+  	static int append_all_valid_neighbours
+    
+    Appens all valid neighbours to an stack for searching. Neighbour is invalid if his level is higher then max or if his id is already
+    contained in his predecessor_nodes.
+    
+    returns:
+    0 if suceed
+    1 if failes
+   ____________________________________________________________________________
+*/
+
+static int append_all_valid_neighbours(stack *open, stack_node *from,predecessor_node *predecessor,int max_level){
+	edge_node *temp_e = NULL;
+	stack_node *new_temp = NULL;
+	int error = 0;
+	
+	if(from->node->neighbours != NULL && from->level < max_level){
+	if(from->node->neighbours->head != NULL){
+		temp_e = from->node->neighbours->head;
+		while(temp_e != NULL){
+//			printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
+			new_temp = create_stack_node(temp_e->graph_node,temp_e->date,predecessor,from->level + 1);
+			if(new_temp == NULL){
+				error = 1;
+				break;
+			}
+			
+			append_stack_node_to_stack(open,new_temp);
+			temp_e = temp_e->next;
+		}
+	}
+	return error;
+	}
+	
+}
+
+/* ____________________________________________________________________________
+
+  	static int dfs_alg(stack *open,predecessors_list *closed,int max_level)
     
     Pops node from stack search all her neighbours. Appends to the stack the ones wich are not already contained in nodes predecessors or their level is lower than max_level.
     Id of node is added to the predecessors_list with predecessor of the node. All of this is running in cycle until our stack is empty.
    ____________________________________________________________________________
 */
-
 
 static int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 	stack_node *temp = NULL;
@@ -57,25 +95,11 @@ static int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 		append_predecessor_predecessors(temp2,temp3);
 		
 		if(temp->node != NULL){
-		
-		if(temp->node->neighbours != NULL && temp->level < max_level){
-			if(temp->node->neighbours->head != NULL){
-				temp4 = temp->node->neighbours->head;
-				while(temp4 != NULL){
-//					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
-					new_temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
-					if(new_temp == NULL){
-						error = 1;
-						break;
-					}
-					
-					append_stack_node_to_stack(open,new_temp);
-					temp4 = temp4->next;
-				}
-				if(error == 1){
-					break;
-				}
-			}
+			
+		error = append_all_valid_neighbours(open,temp,temp3,max_level);
+		if(error == 1){
+			dispose_stack_node(&temp);
+			break;
 		}
 	}
 			
@@ -100,27 +124,14 @@ static int dfs_alg(stack *open,predecessors_list *closed,int max_level){
 		
 		if(temp->node != NULL){
 	
-		if(temp->node->neighbours != NULL && temp->level < max_level){
-			if(temp->node->neighbours->head != NULL){
-				temp4 = temp->node->neighbours->head;
-				while(temp4 != NULL){
-//					printf("%i-new neighbour(level%i)\n",temp4->graph_node->id_node,temp->level +1);
-					new_temp = create_stack_node(temp4->graph_node,temp4->date,temp3,temp->level + 1);
-					if(new_temp == NULL){
-						error = 1;
-						break;
-					}
-					
-					append_stack_node_to_stack(open,new_temp);
-					temp4 = temp4->next;
-				}
-				if(error == 1){
-					dispose_stack_node(&temp);
-					break;
-				}
-			}
+		error = append_all_valid_neighbours(open,temp,temp3,max_level);
+		if(error == 1){
+			dispose_stack_node(&temp);
+			break;
 		}
+		
 	}
+	
 	}
 	dispose_stack_node(&temp);
 	}

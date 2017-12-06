@@ -10,6 +10,7 @@
 #define _DATALOADER_H
 
 #include "graph.h"
+#include "neighbours.h"
 
 /* ____________________________________________________________________________
 

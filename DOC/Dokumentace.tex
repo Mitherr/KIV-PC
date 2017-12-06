@@ -40,7 +40,7 @@ titlepage
 
 	\vfill
 
-	{\Large 1.\,12.\,2017}
+	{\Large 6.\,12.\,2017}
 \end{titlepage}
 
 \tableofcontents
@@ -291,8 +291,9 @@ Parametry pro spuštění jsou <soubor-grafu> <id1> <id2> <maxD>
 Při spuštění s jiným počtem parametrů program vypíše nápovědu jak ho správně spustit. V případě nevalidní parametru je vypsáno, který to byl. 
 
 \chapter{Závěr}
-Práce byla vytvářena déle než na portále naivně uvedených 40 hodin. Zejména velkou část času spotřebovala dokumentace v \LaTeX, který s předmětem jako takovým nemá nic společného. Bylo zajímavé si vyzkoušet práci s nízkoúrovňovým programovým jazykem, avšak po několika hodinách práce bylo jasné, proč tento jazyk poslední roky ztrácí na oblibě.\\
 Program byl napsán tak, aby byl snadno rozšířitelný. Moduly jsou připraveny k implementaci více druhů prohledávání grafu. Z výsledku by mohlo vzniknout hezké poměření algoritmů při řešení tohoto NP-úplného problému.\\
-V případě prohledávání pouze grafů, kde víme že id vrcholu je kladné číslo v rozsahu od $<0,2147483647>$ by mohlo být programování značně urychleno reprezentací Matice sousednosti a ukládáním jak vrcholu grafu, tak předchůdců v grafu do pole, místo do spojového seznamu. Bohužel tato informace nebyla nikde dána. Bylo tedy zvoleno více univerzální řešení, které je pomalejší. 
+V případě prohledávání pouze grafů, kde víme že id vrcholu je kladné číslo v rozsahu od $<0,2147483647>$ by mohlo být programování značně urychleno reprezentací Matice sousednosti a ukládáním jak vrcholu grafu, tak předchůdců v grafu do pole, místo do spojového seznamu. Bohužel tato informace nebyla nikde dána. Bylo tedy zvoleno více univerzální řešení, které je pomalejší.\\
+Práce byla vytvářena déle než na portále naivně uvedených 40 hodin. Zejména velkou část času spotřebovala dokumentace v \LaTeX, který s předmětem jako takovým nemá nic společného. Bylo zajímavé si vyzkoušet práci s nízkoúrovňovým programovým jazykem, avšak po několika hodinách práce bylo jasné, proč tento jazyk poslední roky ztrácí na oblibě.\\
+Validace pomocí validátoru se zdá býti poněkud neštastná. V případě ,že i maličkost není v zadání řádně specifikována. Může to véct k tomu, že student stráví nad validací 2 dny, jako se stalo v tomto případě. Validátor přitom v hodnocení práce nehraje žádnou roli, neboť je hodnocena ručně.
 
 \end{document}
